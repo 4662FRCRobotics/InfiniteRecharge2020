@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.Robot;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.frc.revrobotics.CANEncoder;
-import com.frc.revrobotics.CANSparkMax;
-import com.frc.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Drive extends SubsystemBase {
   /**
