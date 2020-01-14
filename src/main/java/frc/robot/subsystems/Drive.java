@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.Robot;
-
+/*
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
-
+*/
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -21,6 +22,8 @@ public class Drive extends SubsystemBase {
   /**
    * Creates a new Drive.
    */
+
+  /*
   private CANSparkMax m_leftController1;
   private CANSparkMax m_leftController2;
   private CANSparkMax m_rightController1;
@@ -30,7 +33,7 @@ public class Drive extends SubsystemBase {
   private SpeedControllerGroup m_rightControlGroup;
 
   private DifferentialDrive m_robotDrive;
-
+  */
   public Drive() {
     
   }
