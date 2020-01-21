@@ -8,10 +8,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -21,10 +26,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Drive m_drive = new Drive();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+  private final Joystick m_driveStick = new Joystick(0);
 
 
   /**
@@ -33,7 +37,21 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    //m_driveStick = new Joystick(0);
+
+    m_drive.setDefaultCommand(
+      // A split-stick arcade command, with forward/backward controlled by the left
+      // hand, and turning controlled by the right.
+      new ArcadeDrive(
+          m_drive,
+          () -> m_driveStick.getY(),
+          () -> m_driveStick.getTwist(),
+          () -> m_driveStick.getThrottle()));
+
   }
+
+  
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -42,6 +60,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(m_driveStick, 11).whenPressed(new TurnToAngle(90, m_drive).withTimeout(5));
   }
 
 
@@ -50,8 +69,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+    return ;
+  }*/
 }
