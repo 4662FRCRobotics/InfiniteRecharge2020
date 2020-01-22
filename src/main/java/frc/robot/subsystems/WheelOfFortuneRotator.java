@@ -8,10 +8,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.I2C; 
+import edu.wpi.first.wpilibj.I2C;
+
+import frc.robot.Constants.ContestantConstants;
+
+import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;
 
 public class WheelOfFortuneRotator extends SubsystemBase {
   /**
@@ -22,17 +27,92 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
+  private final ColorMatch m_colorMatcher;
+
+  private final Color kBLUE;
+  private final Color kGREEN;
+  private final Color kRED;
+  private final Color kYELLOW;
+
+  public String m_targetColorString;
+  public Color m_targetColor;
 
   public WheelOfFortuneRotator() {
+    m_colorMatcher = new ColorMatch();
 
+    kBLUE = ColorMatch.makeColor(ContestantConstants.Color.BLUE.getRed(), ContestantConstants.Color.BLUE.getGreen(), ContestantConstants.Color.BLUE.getBlue());
+    kGREEN = ColorMatch.makeColor(ContestantConstants.Color.GREEN.getRed(), ContestantConstants.Color.GREEN.getGreen(), ContestantConstants.Color.GREEN.getBlue());
+    kRED = ColorMatch.makeColor(ContestantConstants.Color.RED.getRed(), ContestantConstants.Color.RED.getGreen(), ContestantConstants.Color.RED.getBlue());
+    kYELLOW = ColorMatch.makeColor(ContestantConstants.Color.YELLOW.getRed(), ContestantConstants.Color.YELLOW.getGreen(), ContestantConstants.Color.YELLOW.getBlue());
+
+    m_colorMatcher.addColorMatch(kBLUE);
+    m_colorMatcher.addColorMatch(kGREEN);
+    m_colorMatcher.addColorMatch(kRED);
+    m_colorMatcher.addColorMatch(kYELLOW);
   }
 
   @Override
   public void periodic() {
-    readSensor();
+    Color detectedColor;
+    detectedColor = readSensor();
+
+    String colorString;
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    if (match.color == kBLUE) {
+      colorString = ContestantConstants.Color.BLUE.getName();
+    } else if (match.color == kRED) {
+      colorString = ContestantConstants.Color.RED.getName();
+    } else if (match.color == kGREEN) {
+      colorString = ContestantConstants.Color.GREEN.getName();
+    } else if (match.color == kYELLOW) {
+      colorString = ContestantConstants.Color.YELLOW.getName();
+    } else {
+      colorString = "Unknown";
+    }
+
+    m_targetColorString = SmartDashboard.getString("Target color", ContestantConstants.BLUE_STRING);
+    switch (m_targetColorString) {
+      case ContestantConstants.BLUE_STRING:
+        m_targetColor = kBLUE;
+        break;
+
+      case ContestantConstants.RED_STRING:
+        m_targetColor = kRED;
+        break;
+
+      case ContestantConstants.GREEN_STRING:
+        m_targetColor = kGREEN;
+        break;
+
+      case ContestantConstants.YELLOW_STRING:
+        m_targetColor = kYELLOW;
+        break;
+    }
+
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Confidence", match.confidence);
+    SmartDashboard.putString("Detected Color", colorString);
   }
 
-  private void readSensor(){
+  public boolean matchColor(){
+    boolean returnValue = false;
+
+    Color detectedColor;
+    detectedColor = readSensor();
+
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    if (match.color == m_targetColor) {
+      returnValue = true;
+    }
+
+    return returnValue;
+  }
+
+  private Color readSensor(){
 
     Color detectedColor = m_colorSensor.getColor();
 
@@ -47,7 +127,9 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
     SmartDashboard.putNumber("Proximity", proximity);
     
+    return detectedColor;
   }
+  
  
 }
 

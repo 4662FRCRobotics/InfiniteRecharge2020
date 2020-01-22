@@ -16,4 +16,47 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class ContestantConstants {
+        public static final String BLUE_STRING = "Blue";
+        public static final String RED_STRING = "Red";
+        public static final String GREEN_STRING = "Green";
+        public static final String YELLOW_STRING = "Yellow";
+
+        public enum Color {
+            RED(0.531006, 0.337158, 0.128906, RED_STRING),
+            BLUE(0.119873, 0.414551, 0.465820, BLUE_STRING),
+            YELLOW(0.321289, 0.555908, 0.123291, YELLOW_STRING),
+            GREEN(0.165527, 0.573975, 0.260010, GREEN_STRING);
+
+            private double m_dRed;
+            private double m_dGreen;
+            private double m_dBlue;
+
+            private String m_name;
+
+            Color(double red, double green, double blue, String name) {
+                this.m_dRed = red;
+                this.m_dBlue = blue;
+                this.m_dGreen = green;
+                this.m_name = name;
+            }
+            public double getRed(){
+                return m_dRed;
+            }
+
+            public double getGreen(){
+                return m_dGreen;
+            }
+
+            public double getBlue(){
+                return m_dBlue;
+            }
+
+            public final String getName(){
+                return m_name;
+            }
+        }
+    }
+    
 }
+
