@@ -152,7 +152,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   public boolean isGameDataNull(){
     boolean gameDataNull = false;
     getGameData();
-    gameDataNull = m_gameData.length() == 0;
+    gameDataNull = m_gameData.equals("");
     SmartDashboard.putBoolean("Game data null?", gameDataNull);
     return gameDataNull;
   }
