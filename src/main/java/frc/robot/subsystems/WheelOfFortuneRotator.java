@@ -10,12 +10,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 
 import frc.robot.Constants.ContestantConstants;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 
 public class WheelOfFortuneRotator extends SubsystemBase {
@@ -29,6 +31,11 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
   private final ColorMatch m_colorMatcher;
 
+  private String m_gameData;
+  private int m_colorChangeCount;
+
+  //private final TalonSRX m_contestantMotor;
+
   private final Color kBLUE;
   private final Color kGREEN;
   private final Color kRED;
@@ -37,8 +44,15 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   public String m_targetColorString;
   public Color m_targetColor;
 
+  private Color currentColor;
+  private Color previousColor;
+
   public WheelOfFortuneRotator() {
     m_colorMatcher = new ColorMatch();
+    m_gameData = "";
+    m_colorChangeCount = 0;
+
+    //m_contestantMotor = new TalonSRX(ContestantConstants.CONTESTANT_MOTOR);
 
     kBLUE = ColorMatch.makeColor(ContestantConstants.Color.BLUE.getRed(), ContestantConstants.Color.BLUE.getGreen(), ContestantConstants.Color.BLUE.getBlue());
     kGREEN = ColorMatch.makeColor(ContestantConstants.Color.GREEN.getRed(), ContestantConstants.Color.GREEN.getGreen(), ContestantConstants.Color.GREEN.getBlue());
@@ -129,7 +143,23 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     
     return detectedColor;
   }
+
+  private void getGameData(){
+    m_gameData = DriverStation.getInstance().getGameSpecificMessage();
+    
+  }
   
+  public boolean isGameDataNull(){
+    boolean gameDataNull = false;
+    getGameData();
+    gameDataNull = m_gameData.length() == 0;
+    SmartDashboard.putBoolean("Game data null?", gameDataNull);
+    return gameDataNull;
+  }
+
+  public void zeroColorChangeCount(){
+    m_colorChangeCount = 0;
+  }
  
 }
 

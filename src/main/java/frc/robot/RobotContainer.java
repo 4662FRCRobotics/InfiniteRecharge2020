@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ColorWheelPositionControl;
+import frc.robot.commands.ColorWheelRotationControl;
 import frc.robot.subsystems.WheelOfFortuneRotator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.InternalButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,35 +30,16 @@ public class RobotContainer {
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
   private Joystick m_driveStick;
-
-  private JoystickButton m_positionControlButton;
-
+  private InternalButton m_colorWheelPosition;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
 
     m_driveStick = new Joystick(0);
 
-    m_positionControlButton = new JoystickButton(m_driveStick, 2);//.whenPressed(new ColorWheelPositionControl(m_contestant));
-    /*
-    m_drive.setDefaultCommand(
-      new ArcadeDrive(
-        m_drive,
-        () -> m_driveStick.getY(),
-        () -> m_driveStick.getTwist()
-      )
-    );
-    */
-
-
-
-  }
-
-  public WheelOfFortuneRotator getWheelOfFortuneRotator(){
-    return m_contestant;
+    // Configure the button bindings
+    configureButtonBindings();
   }
 
   /**
@@ -65,8 +49,17 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(m_driveStick, 2).whenPressed(
+      new ConditionalCommand(
+        new ColorWheelRotationControl(m_contestant),  // If condition is true
+        new ColorWheelPositionControl(m_contestant),  // If condition is false
+        m_contestant::isGameDataNull)  // Condition
+    );
   }
 
+  public WheelOfFortuneRotator getWheelOfFortuneRotator(){
+    return m_contestant;
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
