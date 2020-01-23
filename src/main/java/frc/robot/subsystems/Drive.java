@@ -15,6 +15,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.EncoderType;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
@@ -64,8 +65,10 @@ public class Drive extends SubsystemBase {
 
     m_robotDrive = new DifferentialDrive(m_leftControlGroup, m_rightControlGroup);
 
-    m_leftEncoder1 = m_leftController1.getEncoder();
-    m_rightEncoder1 = m_rightController1.getEncoder();
+    //m_leftEncoder1 = m_leftController1.getEncoder();
+    //m_rightEncoder1 = m_rightController1.getEncoder();
+    m_leftEncoder1 = new CANEncoder(m_leftController1, EncoderType.kHallSensor, 4096);
+    m_rightEncoder1 = new CANEncoder(m_rightController1, EncoderType.kHallSensor, 4096);
 
     m_leftController1.setIdleMode(CANSparkMax.IdleMode.kCoast);
     m_leftController2.setIdleMode(CANSparkMax.IdleMode.kCoast);
@@ -84,10 +87,10 @@ public class Drive extends SubsystemBase {
 
     m_gyroAndCollison = new AHRS(SPI.Port.kMXP);
 
-    m_turnAngle = new PIDController(DriveConstants.kTURN_ANGLE_P, DriveConstants.kTURN_ANGLE_I, DriveConstants.kTURN_ANGLE_D);
+    //m_turnAngle = new PIDController(DriveConstants.kTURN_ANGLE_P, DriveConstants.kTURN_ANGLE_I, DriveConstants.kTURN_ANGLE_D);
     m_dAngle = 0;
 
-    m_keepHeading = new PIDController(DriveConstants.kKEEP_HEADING_P, DriveConstants.kKEEP_HEADING_I, DriveConstants.kKEEP_HEADING_D);
+    //m_keepHeading = new PIDController(DriveConstants.kKEEP_HEADING_P, DriveConstants.kKEEP_HEADING_I, DriveConstants.kKEEP_HEADING_D);
 		m_dSteeringHeading = 0;
     
   } 
@@ -108,8 +111,18 @@ public class Drive extends SubsystemBase {
     m_robotDrive.arcadeDrive(velocity * dDriveInvert, heading);
   }
 
+  public double getDistance() {
+    return (-m_leftEncoder1.getPosition() + m_rightEncoder1.getPosition()) / 2;
+  }
+
   public double getHeading() {
     return Math.IEEEremainder(m_gyroAndCollison.getAngle(), 360);
+  }
+
+  public void reset() {
+    m_gyroAndCollison.reset();
+    m_leftEncoder1.setPosition(0);
+    m_rightEncoder1.setPosition(0);
   }
 
 }

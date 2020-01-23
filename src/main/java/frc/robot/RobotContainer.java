@@ -44,10 +44,10 @@ public class RobotContainer {
       // A split-stick arcade command, with forward/backward controlled by the left
       // hand, and turning controlled by the right.
       new ArcadeDrive(
-          m_drive,
-          () -> m_driveStick.getY(),
-          () -> m_driveStick.getTwist(),
-          () -> m_driveStick.getThrottle()));
+        m_drive,
+        () -> m_driveStick.getY(),
+        () -> m_driveStick.getTwist(),
+        () -> m_driveStick.getThrottle()));
 
   }
 
@@ -61,6 +61,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_driveStick, 11).whenPressed(new TurnToAngle(90, m_drive).withTimeout(5));
+
+    new JoystickButton(m_driveStick, 12).whenPressed(new DriveDistance(250, m_drive).withTimeout(5));
   }
 
 
