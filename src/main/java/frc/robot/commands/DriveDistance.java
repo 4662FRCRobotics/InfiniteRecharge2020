@@ -35,7 +35,7 @@ public class DriveDistance extends PIDCommand {
     m_drive = drive;
     addRequirements(m_drive);
 
-    getController().setTolerance(0.01);
+    getController().setTolerance(DriveConstants.kKEEP_HEADING_TOLERANCE);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }

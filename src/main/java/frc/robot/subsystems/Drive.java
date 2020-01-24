@@ -99,9 +99,9 @@ public class Drive extends SubsystemBase {
   public void periodic() {
     //arcadeDrive(Robot.m_robotContainer.getVelocity(), Robot.m_robotContainer.getHeading());
 
-      double distancePerEncoderTic = DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI) / 12;
-      SmartDashboard.putNumber("leftencoder", m_leftEncoder1.getPosition() / distancePerEncoderTic);
-      SmartDashboard.putNumber("rightencoder", m_rightEncoder1.getPosition() / distancePerEncoderTic);
+      double distancePerEncoderTic = DriveConstants.kGEARBOX_REDUCTION * (DriveConstants.kTIRE_SIZE * Math.PI);
+      SmartDashboard.putNumber("leftencoder", m_leftEncoder1.getPosition() /*distancePerEncoderTic*/); // "/"
+      SmartDashboard.putNumber("rightencoder", m_rightEncoder1.getPosition() /* distancePerEncoderTic*/); //"/"
       SmartDashboard.putNumber("Gyro", m_gyroAndCollison.getAngle());
   
   }
