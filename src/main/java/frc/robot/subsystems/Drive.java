@@ -28,7 +28,6 @@ public class Drive extends SubsystemBase {
    * Creates a new Drive.
    */
 
-  /*
   private CANSparkMax m_leftController1;
   private CANSparkMax m_leftController2;
   private CANSparkMax m_rightController1;
@@ -43,16 +42,16 @@ public class Drive extends SubsystemBase {
   private DifferentialDrive m_robotDrive;
 
   private AHRS m_gyroAndCollison;
-  private PIDController m_turnAngle;
-  /*private double m_dTurnAngleP;
+  /*private PIDController m_turnAngle;
+  private double m_dTurnAngleP;
   private double m_dTurnAngleI;
   private double m_dTurnAngleD;
   private double m_dTurnAngleTolerance;*/
   private double m_dAngle;
 
-  private PIDController m_keepHeading;
+  /*private PIDController m_keepHeading;
   
-  private volatile double m_dSteeringHeading;
+  /*private volatile double m_dSteeringHeading;
 
   public Drive() {
     m_leftController1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
