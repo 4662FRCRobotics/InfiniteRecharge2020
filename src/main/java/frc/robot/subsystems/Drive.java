@@ -19,7 +19,6 @@ import com.revrobotics.EncoderType;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -28,6 +27,8 @@ public class Drive extends SubsystemBase {
   /**
    * Creates a new Drive.
    */
+
+  /*
   private CANSparkMax m_leftController1;
   private CANSparkMax m_leftController2;
   private CANSparkMax m_rightController1;
@@ -52,7 +53,6 @@ public class Drive extends SubsystemBase {
   private PIDController m_keepHeading;
   
   private volatile double m_dSteeringHeading;
-
 
   public Drive() {
     m_leftController1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
