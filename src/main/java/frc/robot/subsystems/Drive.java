@@ -49,9 +49,9 @@ public class Drive extends SubsystemBase {
   private double m_dTurnAngleTolerance;*/
   private double m_dAngle;
 
-  /*private PIDController m_keepHeading;
+  //private PIDController m_keepHeading;
   
-  /*private volatile double m_dSteeringHeading;
+  private volatile double m_dSteeringHeading;
 
   public Drive() {
     m_leftController1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -98,7 +98,8 @@ public class Drive extends SubsystemBase {
   public void periodic() {
     //arcadeDrive(Robot.m_robotContainer.getVelocity(), Robot.m_robotContainer.getHeading());
 
-      double distancePerEncoderTic = DriveConstants.kGEARBOX_REDUCTION * (DriveConstants.kTIRE_SIZE * Math.PI);
+      //double distancePerEncoderTic = DriveConstants.kGEARBOX_REDUCTION * (DriveConstants.kTIRE_SIZE * Math.PI);
+      double distancePerEncoderTic = (DriveConstants.kTIRE_SIZE * Math.PI) / DriveConstants.kTIRE_SIZE / DriveConstants.kPULSE_PER_ROTATION;
       SmartDashboard.putNumber("leftencoder", m_leftEncoder1.getPosition() /*distancePerEncoderTic*/); // "/"
       SmartDashboard.putNumber("rightencoder", m_rightEncoder1.getPosition() /* distancePerEncoderTic*/); //"/"
       SmartDashboard.putNumber("Gyro", m_gyroAndCollison.getAngle());
