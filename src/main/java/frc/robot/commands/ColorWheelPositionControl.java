@@ -31,6 +31,7 @@ public class ColorWheelPositionControl extends CommandBase {
   @Override
   public void initialize() {
     bMotorOn = true;
+    m_contestant.setColorWheelMotor(speed);
     SmartDashboard.putBoolean("Position Control", true);
   }
 

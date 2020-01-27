@@ -22,6 +22,11 @@ public final class Constants {
         public static final String GREEN_STRING = "Green";
         public static final String YELLOW_STRING = "Yellow";
 
+        public static final int changesPerRot = 24;
+        public static final int kMOTOR_ID = 6;
+        public static final double kPOSITION_MOTOR_SPEED = 0.25;
+        public static final double kROTATION_MOTOR_SPEED = 0.5;
+
         //public static final int CONTESTANT_MOTOR = 
 
         public enum Color {
