@@ -47,6 +47,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
   private String m_currentColor;
   private String m_previousColor;
+  private double m_colorConfidence;
 
   private WPI_TalonSRX m_colorWheelMotor;
 
@@ -113,6 +114,8 @@ public class WheelOfFortuneRotator extends SubsystemBase {
         break;
     }
 
+    m_colorConfidence = match.confidence;
+
 
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
@@ -123,7 +126,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   }
 
   public void detectColorChange(){
-    if (!m_previousColor.equals (m_currentColor)){
+    if ((!m_previousColor.equals (m_currentColor))&&(m_colorConfidence > Constants.ContestantConstants.kCOLOR_CONFIDENCE_THRESHOLD)){
       m_colorChangeCount++;
       m_previousColor = m_currentColor;
     }

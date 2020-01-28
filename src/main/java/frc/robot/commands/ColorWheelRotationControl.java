@@ -25,6 +25,7 @@ public class ColorWheelRotationControl extends CommandBase {
   @Override
   public void initialize() {
     SmartDashboard.putBoolean("Rotation Control", true);
+    m_contestant.zeroColorChangeCount();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

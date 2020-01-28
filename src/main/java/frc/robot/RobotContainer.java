@@ -37,14 +37,11 @@ public class RobotContainer {
 
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
-  private Joystick m_driveStick;
-  private InternalButton m_colorWheelPosition;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
 
-    m_driveStick = new Joystick(0);
 
     // Configure the button bindings
     configureButtonBindings();
