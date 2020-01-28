@@ -17,6 +17,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.InternalButton;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,6 +31,9 @@ import edu.wpi.first.wpilibj2.command.button.InternalButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final Drive m_drive = new Drive();
+
+  private final Joystick m_driveStick = new Joystick(0);
 
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
@@ -40,7 +48,21 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    //m_driveStick = new Joystick(0);
+
+    m_drive.setDefaultCommand(
+      // A split-stick arcade command, with forward/backward controlled by the left
+      // hand, and turning controlled by the right.
+      new ArcadeDrive(
+        m_drive,
+        () -> m_driveStick.getY(),
+        () -> m_driveStick.getTwist(),
+        () -> m_driveStick.getThrottle()));
+
   }
+
+  
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -55,6 +77,9 @@ public class RobotContainer {
         new ColorWheelPositionControl(m_contestant),  // If condition is false
         m_contestant::isGameDataNull)  // Condition
     );
+    new JoystickButton(m_driveStick, 11).whenPressed(new TurnToAngle(90, m_drive).withTimeout(5));
+
+    new JoystickButton(m_driveStick, 12).whenPressed(new DriveDistance(250, m_drive).withTimeout(5));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){
