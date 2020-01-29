@@ -16,16 +16,30 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class ButtonMappings {
+        public static final int kROTATION_CONTROL = 4;
+        public static final int kPOSITION_CONTROL = 6;
+        public static final int kWHEEL_OF_FORTUNE_CW = 12;
+        public static final int kWHEEL_OF_FORTUNE_CCW = 11;
+        public static final int kLOADER = 2;
+        public static final int kSHOOTER = 1;
+        public static final int kCLIMB = 3;
+        public static final int kREVERSE_CLIMB = 5;
+    }
+
     public static final class ContestantConstants {
-        public static final String BLUE_STRING = "Blue";
-        public static final String RED_STRING = "Red";
-        public static final String GREEN_STRING = "Green";
-        public static final String YELLOW_STRING = "Yellow";
+        public static final String BLUE_STRING = "B";
+        public static final String RED_STRING = "R";
+        public static final String GREEN_STRING = "G";
+        public static final String YELLOW_STRING = "Y";
 
         public static final int changesPerRot = 24;
         public static final int kMOTOR_ID = 6;
         public static final double kPOSITION_MOTOR_SPEED = 0.25;
         public static final double kROTATION_MOTOR_SPEED = 0.5;
+        public static final double kOVERRIDE_SPEED = 0.375;
+        public static final double kZERO_SPEED = 0;
+
         public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;
 
         //public static final int CONTESTANT_MOTOR = 
@@ -63,6 +77,10 @@ public final class Constants {
             public final String getName(){
                 return m_name;
             }
+        }
+        
+        public enum Direction {
+            CW, CCW
         }
     }
     

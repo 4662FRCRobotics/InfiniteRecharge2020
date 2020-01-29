@@ -17,7 +17,6 @@ import frc.robot.Constants.ContestantConstants;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorMatch;
 
@@ -73,7 +72,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic() { // Todo: Save relevant data to member class variables and offload logic to various methods
 
     Color detectedColor;
     detectedColor = readSensor();
@@ -93,9 +92,13 @@ public class WheelOfFortuneRotator extends SubsystemBase {
       colorString = "Unknown";
     }
 
-    m_currentColor = colorString;      
+    m_currentColor = colorString;
 
-    m_targetColorString = SmartDashboard.getString("Target color", ContestantConstants.BLUE_STRING);
+    m_targetColorString = SmartDashboard.getString("Target color", ContestantConstants.RED_STRING);
+    SmartDashboard.putString("Bruh", m_targetColorString);
+    m_targetColorString = offsetColor(m_targetColorString);
+    SmartDashboard.putString("Bruh2", m_targetColorString);
+
     switch (m_targetColorString) {
       case ContestantConstants.BLUE_STRING:
         m_targetColor = kBLUE;
@@ -112,7 +115,13 @@ public class WheelOfFortuneRotator extends SubsystemBase {
       case ContestantConstants.YELLOW_STRING:
         m_targetColor = kYELLOW;
         break;
+
+      default: 
+        m_targetColor = kRED;
+        break;
     }
+
+    
 
     m_colorConfidence = match.confidence;
 
@@ -121,12 +130,13 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putNumber("Color Change Count", m_colorChangeCount);
+    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putString("Target Color", m_targetColorString);
   }
 
   public void detectColorChange(){
-    if ((!m_previousColor.equals (m_currentColor))&&(m_colorConfidence > Constants.ContestantConstants.kCOLOR_CONFIDENCE_THRESHOLD)){
+    if ((!m_previousColor.equals (m_currentColor)) && (m_colorConfidence > Constants.ContestantConstants.kCOLOR_CONFIDENCE_THRESHOLD)){
       m_colorChangeCount++;
       m_previousColor = m_currentColor;
     }
@@ -136,6 +146,27 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     return m_colorChangeCount >= Constants.ContestantConstants.changesPerRot;
   }
 
+  private String offsetColor(String readColor){
+    String returnValue = ContestantConstants.RED_STRING;
+    switch (readColor){
+      case ContestantConstants.BLUE_STRING:
+        returnValue = ContestantConstants.RED_STRING;
+        break;
+
+      case ContestantConstants.GREEN_STRING:
+        returnValue = ContestantConstants.YELLOW_STRING;
+        break;
+
+      case ContestantConstants.RED_STRING:
+        returnValue = ContestantConstants.BLUE_STRING;
+        break;
+
+      case ContestantConstants.YELLOW_STRING:
+        returnValue = ContestantConstants.GREEN_STRING;
+        break;
+    }
+    return returnValue;
+  }
 
   public boolean matchColor(){
     boolean returnValue = false;
@@ -145,7 +176,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color == m_targetColor) {
+    if ((match.color == m_targetColor) && (m_colorConfidence > Constants.ContestantConstants.kCOLOR_CONFIDENCE_THRESHOLD)) {
       returnValue = true;
     }
 
@@ -172,7 +203,6 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
   private void getGameData(){
     m_gameData = DriverStation.getInstance().getGameSpecificMessage();
-    
   }
   
   public boolean isGameDataNull(){

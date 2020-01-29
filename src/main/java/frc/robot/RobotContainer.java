@@ -10,8 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ColorWheelPositionControl;
-import frc.robot.commands.ColorWheelRotationControl;
 import frc.robot.subsystems.WheelOfFortuneRotator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -20,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.button.InternalButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants.ButtonMappings;
+import frc.robot.Constants.ContestantConstants.Direction;
 
 
 
@@ -68,15 +68,15 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driveStick, 2).whenPressed(
-      new ConditionalCommand(
-        new ColorWheelRotationControl(m_contestant),  // If condition is true
-        new ColorWheelPositionControl(m_contestant),  // If condition is false
-        m_contestant::isGameDataNull)  // Condition
-    );
-    new JoystickButton(m_driveStick, 11).whenPressed(new TurnToAngle(90, m_drive).withTimeout(5));
-
-    new JoystickButton(m_driveStick, 12).whenPressed(new DriveDistance(250, m_drive).withTimeout(5));
+    new JoystickButton(m_driveStick, ButtonMappings.kROTATION_CONTROL).whenPressed(  // Rotation control
+        new ColorWheelRotationControl(m_contestant));
+    new JoystickButton(m_driveStick, ButtonMappings.kPOSITION_CONTROL).whenPressed(  // Position control
+        new ColorWheelPositionControl(m_contestant));
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(
+        new WheelOfFortuneRotate(m_contestant, Direction.CCW));
+    
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(
+      new WheelOfFortuneRotate(m_contestant, Direction.CW));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){

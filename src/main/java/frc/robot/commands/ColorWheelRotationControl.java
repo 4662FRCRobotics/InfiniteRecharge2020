@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ContestantConstants;
 import frc.robot.subsystems.WheelOfFortuneRotator;
 
 public class ColorWheelRotationControl extends CommandBase {
@@ -24,7 +25,9 @@ public class ColorWheelRotationControl extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_contestant.setColorWheelMotor(ContestantConstants.kROTATION_MOTOR_SPEED);
     SmartDashboard.putBoolean("Rotation Control", true);
+    m_contestant.detectColorChange();
     m_contestant.zeroColorChangeCount();
   }
 
@@ -37,6 +40,7 @@ public class ColorWheelRotationControl extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_contestant.setColorWheelMotor(ContestantConstants.kZERO_SPEED);
     SmartDashboard.putBoolean("Rotation Control", false);
   }
 

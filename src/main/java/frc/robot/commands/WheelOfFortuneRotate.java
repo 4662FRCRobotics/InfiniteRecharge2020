@@ -8,29 +8,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.Constants.ContestantConstants;
 import frc.robot.subsystems.WheelOfFortuneRotator;
 
-public class ColorWheelPositionControl extends CommandBase {
+public class WheelOfFortuneRotate extends CommandBase {
   /**
-   * Creates a new ColorWheelPositionControl.
+   * Creates a new WheelOfFortuneRotate.
    */
-  
   private WheelOfFortuneRotator m_contestant;
+  private ContestantConstants.Direction m_direction;
+  private double m_speed;
 
-  
-  public ColorWheelPositionControl(WheelOfFortuneRotator contestant) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public WheelOfFortuneRotate(WheelOfFortuneRotator contestant, ContestantConstants.Direction direction) {
     m_contestant = contestant;
+    m_direction = direction;
+
+    switch (direction){
+      case CCW:
+        m_speed = ContestantConstants.kOVERRIDE_SPEED;
+        break;
+      case CW:
+        m_speed = -ContestantConstants.kOVERRIDE_SPEED;
+        break;
+    }
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_contestant.setColorWheelMotor(ContestantConstants.kPOSITION_MOTOR_SPEED);
-    SmartDashboard.putBoolean("Position Control", true);
+    m_contestant.setColorWheelMotor(m_speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,12 +49,11 @@ public class ColorWheelPositionControl extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_contestant.setColorWheelMotor(ContestantConstants.kZERO_SPEED);
-    SmartDashboard.putBoolean("Position Control", false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_contestant.matchColor();
+    return false;
   }
 }
