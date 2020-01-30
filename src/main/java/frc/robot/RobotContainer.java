@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.WheelOfFortuneRotator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.InternalButton;
 import frc.robot.commands.*;
@@ -71,7 +72,10 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kROTATION_CONTROL).whenPressed(  // Rotation control
         new ColorWheelRotationControl(m_contestant));
     new JoystickButton(m_driveStick, ButtonMappings.kPOSITION_CONTROL).whenPressed(  // Position control
-        new ColorWheelPositionControl(m_contestant));
+        new ConditionalCommand(
+          new InstantCommand(),
+          new ColorWheelPositionControl(m_contestant),
+          m_contestant::isGameDataNull));
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
     
