@@ -72,10 +72,7 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kROTATION_CONTROL).whenPressed(  // Rotation control
         new ColorWheelRotationControl(m_contestant));
     new JoystickButton(m_driveStick, ButtonMappings.kPOSITION_CONTROL).whenPressed(  // Position control
-        new ConditionalCommand(
-          new InstantCommand(),
-          new ColorWheelPositionControl(m_contestant),
-          m_contestant::isGameDataNull));
+        new ColorWheelPositionControl(m_contestant));
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
     

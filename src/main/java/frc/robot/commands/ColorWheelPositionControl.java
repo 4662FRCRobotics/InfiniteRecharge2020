@@ -29,6 +29,7 @@ public class ColorWheelPositionControl extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_contestant.getGameData();
     m_contestant.setColorWheelMotor(ContestantConstants.kPOSITION_MOTOR_SPEED);
     SmartDashboard.putBoolean("Position Control", true);
   }

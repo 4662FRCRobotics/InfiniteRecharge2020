@@ -143,7 +143,6 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   }
 
   private String offsetColor(String readColor){
-    SmartDashboard.putString("Read Color", readColor);
     String returnValue = ContestantConstants.RED_STRING;
     switch (readColor){
       case ContestantConstants.BLUE_STRING:
@@ -198,17 +197,9 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     return detectedColor;
   }
 
-  private void getGameData(){
+  public void getGameData(){
     m_gameData = DriverStation.getInstance().getGameSpecificMessage();
     SmartDashboard.putString("Game data", m_gameData);
-  }
-  
-  public boolean isGameDataNull(){
-    boolean gameDataNull = false;
-    getGameData();
-    gameDataNull = m_gameData.equals("");
-    SmartDashboard.putBoolean("Game data null?", gameDataNull);
-    return gameDataNull;
   }
 
   public void zeroColorChangeCount(){
