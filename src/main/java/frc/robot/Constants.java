@@ -28,16 +28,16 @@ public final class Constants {
     }
 
     public static final class ContestantConstants {
-        public static final String BLUE_STRING = "B";
-        public static final String RED_STRING = "R";
-        public static final String GREEN_STRING = "G";
-        public static final String YELLOW_STRING = "Y";
+        public static final String kBLUE_STRING = "B";
+        public static final String kRED_STRING = "R";
+        public static final String kGREEN_STRING = "G";
+        public static final String kYELLOW_STRING = "Y";
 
-        public static final int changesPerRot = 24;
+        public static final int kCHANGES_PER_ROT = 24;
         public static final int kMOTOR_ID = 6;
         public static final double kPOSITION_MOTOR_SPEED = 0.25;
         public static final double kROTATION_MOTOR_SPEED = 0.5;
-        public static final double kOVERRIDE_SPEED = 0.375;
+        public static final double kOVERRIDE_SPEED = 0.75;
         public static final double kZERO_SPEED = 0;
 
         public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;
@@ -45,10 +45,10 @@ public final class Constants {
         //public static final int CONTESTANT_MOTOR = 
 
         public enum Color {
-            RED(0.531006, 0.337158, 0.128906, RED_STRING),
-            BLUE(0.119873, 0.414551, 0.465820, BLUE_STRING),
-            YELLOW(0.321289, 0.555908, 0.123291, YELLOW_STRING),
-            GREEN(0.165527, 0.573975, 0.260010, GREEN_STRING);
+            RED(0.531006, 0.337158, 0.128906, kRED_STRING),
+            BLUE(0.119873, 0.414551, 0.465820, kBLUE_STRING),
+            YELLOW(0.321289, 0.555908, 0.123291, kYELLOW_STRING),
+            GREEN(0.165527, 0.573975, 0.260010, kGREEN_STRING);
 
             private double m_dRed;
             private double m_dGreen;

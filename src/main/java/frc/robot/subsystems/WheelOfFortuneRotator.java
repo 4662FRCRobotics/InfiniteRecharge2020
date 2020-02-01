@@ -34,8 +34,6 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   private String m_gameData;
   private int m_colorChangeCount;
 
-  //private final TalonSRX m_contestantMotor;
-
   private final Color kBLUE;
   private final Color kGREEN;
   private final Color kRED;
@@ -96,19 +94,19 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     m_targetColorString = offsetColor(m_gameData);
 
     switch (m_targetColorString) {
-      case ContestantConstants.BLUE_STRING:
+      case ContestantConstants.kBLUE_STRING:
         m_targetColor = kBLUE;
         break;
 
-      case ContestantConstants.RED_STRING:
+      case ContestantConstants.kRED_STRING:
         m_targetColor = kRED;
         break;
 
-      case ContestantConstants.GREEN_STRING:
+      case ContestantConstants.kGREEN_STRING:
         m_targetColor = kGREEN;
         break;
 
-      case ContestantConstants.YELLOW_STRING:
+      case ContestantConstants.kYELLOW_STRING:
         m_targetColor = kYELLOW;
         break;
 
@@ -139,26 +137,26 @@ public class WheelOfFortuneRotator extends SubsystemBase {
   }  
 
   public boolean limitReached(){
-    return m_colorChangeCount >= Constants.ContestantConstants.changesPerRot;
+    return m_colorChangeCount >= Constants.ContestantConstants.kCHANGES_PER_ROT;
   }
 
   private String offsetColor(String readColor){
-    String returnValue = ContestantConstants.RED_STRING;
+    String returnValue = ContestantConstants.kRED_STRING;
     switch (readColor){
-      case ContestantConstants.BLUE_STRING:
-        returnValue = ContestantConstants.RED_STRING;
+      case ContestantConstants.kBLUE_STRING:
+        returnValue = ContestantConstants.kRED_STRING;
         break;
 
-      case ContestantConstants.GREEN_STRING:
-        returnValue = ContestantConstants.YELLOW_STRING;
+      case ContestantConstants.kGREEN_STRING:
+        returnValue = ContestantConstants.kYELLOW_STRING;
         break;
 
-      case ContestantConstants.RED_STRING:
-        returnValue = ContestantConstants.BLUE_STRING;
+      case ContestantConstants.kRED_STRING:
+        returnValue = ContestantConstants.kBLUE_STRING;
         break;
 
-      case ContestantConstants.YELLOW_STRING:
-        returnValue = ContestantConstants.GREEN_STRING;
+      case ContestantConstants.kYELLOW_STRING:
+        returnValue = ContestantConstants.kGREEN_STRING;
         break;
     }
     return returnValue;
