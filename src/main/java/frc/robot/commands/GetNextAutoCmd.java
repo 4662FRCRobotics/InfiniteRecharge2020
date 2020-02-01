@@ -9,13 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.*;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.*;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class GetNextAutoCmd extends SequentialCommandGroup {
   Drive m_drive;
+  Autonomous m_autonomous;
   
   /**
    * Creates a new GetNextAutoCmd.
@@ -23,6 +25,7 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
   public GetNextAutoCmd(Autonomous autonomous, Drive drive) {
     
     m_drive = drive;
+    m_autonomous = autonomous;
 
     String command = "";
 
@@ -42,22 +45,23 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
   private void ProcessCommand(String command){
     System.out.println("Scheduled Command: " + command);
     switch (command) {
-      /*case "wait":
-        double timeout = Robot.m_autonomous.getDoubleCommandValue();
-        System.out.println("Wait value: " + timeout);
-        addSequential (new WaitCommand(timeout));
+      case "wait":
+        double time = m_autonomous.getDoubleCommandValue();
+        System.out.println("Wait Command is waiting for " + time + " seconds");
+        addCommands(new Wait(time));
         break;
       
-      case "timedMove":
-        double duration = Robot.m_autonomous.getDoubleCommandValue();
-        System.out.println("Timed moved value: " + duration);
-        addSequential (new TimedMove(duration));
-        break;*/
+      case "driveDistance":
+        double distance = m_autonomous.getDoubleCommandValue();
+        System.out.println("Drive Distance is driving for " + distance + " in");
+        //addCommands(new DriveDistance(distance, m_drive));
+        addCommands(new DriveDistance(-distance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI), m_drive));
+        break;
 
       case "turnToAngle":
         //System.out.println("Turn angle value: " + angle);
-        System.out.println("Angle Turning is done.");
-        double angle = 15;
+        double angle = m_autonomous.getDoubleCommandValue();
+        System.out.println("Turn Angle is turning for " + angle + " degrees");
         addCommands(new TurnToAngle(angle, m_drive));
         break;
 

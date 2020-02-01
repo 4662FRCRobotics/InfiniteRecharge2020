@@ -8,34 +8,18 @@
 package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
-import java.util.function.IntSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class LoadAutoXML extends CommandBase {
-  private final Autonomous m_autonomous;
-  private final IntSupplier m_pov;
+public class Wait extends WaitCommand {
   /**
-   * Creates a new LoadAutoXML.
+   * Creates a new Wait.
    */
-  public LoadAutoXML(Autonomous autonomous, IntSupplier pov) {
-    m_autonomous = autonomous;
-    m_pov = pov;
-
+  public Wait(double time) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_autonomous);
+    super(time);
+    //Pass in time to wait.
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    m_autonomous.getXML(m_pov);
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
 }

@@ -31,8 +31,9 @@ public class RobotContainer {
   private final Autonomous m_autonomous = new Autonomous();
 
   private final Joystick m_driveStick = new Joystick(0);
+  private final Joystick m_stationConsole = new Joystick(1);
   
-  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive);
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
   
 
   /**
@@ -69,6 +70,7 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, 12).whenPressed(new DriveDistance(250, m_drive).withTimeout(5));
   }
 
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

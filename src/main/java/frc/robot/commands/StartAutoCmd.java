@@ -7,6 +7,9 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
+
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.*;
 
@@ -17,8 +20,8 @@ public class StartAutoCmd extends SequentialCommandGroup {
   /**
    * Creates a new StartAutoCmd.
    */
-  public StartAutoCmd(Autonomous autonomous, Drive drive) {
-    addCommands(new LoadAutoXML(autonomous));
+  public StartAutoCmd(Autonomous autonomous, Drive drive, IntSupplier pov) {
+    addCommands(new LoadAutoXML(autonomous, pov));
     addCommands(new StartGetNextCmd(autonomous, drive));
   }
 }

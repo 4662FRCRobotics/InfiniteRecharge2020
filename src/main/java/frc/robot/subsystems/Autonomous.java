@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import java.io.File;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +38,8 @@ public class Autonomous extends SubsystemBase {
   private int m_nlCommandNextIndex = 0;
 
   private Element m_element;
+
+  private IntSupplier m_pov;
   /**
    * Creates a new Autonomous.
    */
@@ -43,8 +47,9 @@ public class Autonomous extends SubsystemBase {
 
   }
 
-  public void getXML(){
+  public void getXML(IntSupplier pov){
     // load xml
+    m_pov = pov;
     try {
       File patternAndCommandFile = new File(m_strPatternxmlFilename);
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -55,9 +60,11 @@ public class Autonomous extends SubsystemBase {
       m_patternAndCommandDoc = dBuilder.parse(patternAndCommandFile);
       m_patternAndCommandDoc.getDocumentElement().normalize();
       m_xPath = XPathFactory.newInstance().newXPath();
+      searchAutoXml();
     } catch (Exception e){
       e.printStackTrace();
     }
+    
 
     SmartDashboard.putBoolean("XML loaded", true);
     //System.out.println("hi");
@@ -65,12 +72,14 @@ public class Autonomous extends SubsystemBase {
   //Do confusing stuff. So confuse, I not even sure if spelled confusing right?
   public void searchAutoXml() {
     //String strStartingPosition = Robot.m_oi.getAutoStartPos();
-    String strStartingPosition = "1";
+    String strStartingPosition = getAutoStartPos();
+    String strPattern = "1";
   
     try {
 
-      String searchExpr = "//startingPosition[@name=\"" + strStartingPosition + "\"]/text()";
-      
+      String searchExpr = "//startingPosition[@name=\"" + strStartingPosition + "\"]//pattern[@name=\"" + strPattern + "\"]/text()";
+     // String searchExpr = "//startingPosition[@name=\"" + strStartingPosition + "\"]//targetPosition[@name=\"" + strTargetPosition + "\"]/text()";
+
       SmartDashboard.putString("searchexpr", searchExpr);
 
       NodeList nodeList = (NodeList) m_xPath.compile(searchExpr).evaluate(m_patternAndCommandDoc, XPathConstants.NODESET);
@@ -103,6 +112,26 @@ public class Autonomous extends SubsystemBase {
       e.printStackTrace();
     }
   }
+
+  public String getAutoStartPos(){
+    int startPosNumber = m_pov.getAsInt();
+    String startPosValue = "1";
+    switch(startPosNumber){
+      case 0:
+        startPosValue = "1";
+        break;
+      case 45:
+        startPosValue = "2";
+        break;
+      case 90:
+        startPosValue = "3";
+        break;
+      default:
+        startPosValue = "1";
+    }
+    return startPosValue;
+  }
+
 
   public String getNextCmd() { // !! very high in fat !!
     String command = "";

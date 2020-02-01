@@ -26,6 +26,7 @@ public class DriveDistance extends PIDCommand {
         new PIDController(DriveConstants.kKEEP_HEADING_P, DriveConstants.kKEEP_HEADING_I, DriveConstants.kKEEP_HEADING_D),
         // This should return the measurement
         drive::getDistance, targetDistance,
+        //-targetDistance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI),
         // This should return the setpoint (can also be a constant)
         d -> drive.arcadeDrive(d, 0));
         // This uses the output
@@ -36,6 +37,8 @@ public class DriveDistance extends PIDCommand {
     addRequirements(m_drive);
 
     getController().setTolerance(DriveConstants.kKEEP_HEADING_TOLERANCE);
+    getController().setIntegratorRange(-1, 1);
+    getController().enableContinuousInput(-190, 190);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
