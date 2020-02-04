@@ -17,6 +17,7 @@ import frc.robot.subsystems.Drive;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class TurnToAngle extends PIDCommand {
+  private final Drive m_drive;
   /**
    * Creates a new TurnToAngle.
    */
@@ -37,6 +38,12 @@ public class TurnToAngle extends PIDCommand {
     getController().enableContinuousInput(-180, 180);
 
     getController().setTolerance(DriveConstants.kTURN_ANGLE_TOLERANCE, DriveConstants.kTURN_ANGLE_TOLERANCE_DEG_PER_S);
+    m_drive = drive;
+  } 
+  public void initialize() {
+    // Get everything in a safe starting state.
+    m_drive.reset();
+    super.initialize();
   }
 
   // Returns true when the command should end.

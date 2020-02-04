@@ -16,9 +16,10 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.InternalButton;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.ButtonMappings;
 import frc.robot.Constants.ContestantConstants.Direction;
 
@@ -33,10 +34,15 @@ import frc.robot.Constants.ContestantConstants.Direction;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive m_drive = new Drive();
+  private final Autonomous m_autonomous = new Autonomous();
 
   private final Joystick m_driveStick = new Joystick(0);
-
+  
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
+
+  private final Joystick m_stationConsole = new Joystick(1);
+  
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -88,9 +94,9 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
-   
+   */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }*/
+    return m_AutoCmd;
+  }
 }
