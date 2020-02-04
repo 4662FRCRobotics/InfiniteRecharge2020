@@ -16,6 +16,74 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class ButtonMappings {
+        public static final int kROTATION_CONTROL = 4;
+        public static final int kPOSITION_CONTROL = 6;
+        public static final int kWHEEL_OF_FORTUNE_CW = 12;
+        public static final int kWHEEL_OF_FORTUNE_CCW = 11;
+        public static final int kLOADER = 2;
+        public static final int kSHOOTER = 1;
+        public static final int kCLIMB = 3;
+        public static final int kREVERSE_CLIMB = 5;
+    }
+
+    public static final class ContestantConstants {
+        public static final String kBLUE_STRING = "B";
+        public static final String kRED_STRING = "R";
+        public static final String kGREEN_STRING = "G";
+        public static final String kYELLOW_STRING = "Y";
+
+        public static final int kCHANGES_PER_ROT = 24;
+        public static final int kMOTOR_ID = 6;
+        public static final double kPOSITION_MOTOR_SPEED = 0.25;
+        public static final double kROTATION_MOTOR_SPEED = 0.5;
+        public static final double kOVERRIDE_SPEED = 0.75;
+        public static final double kZERO_SPEED = 0;
+
+        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;
+
+        //public static final int CONTESTANT_MOTOR = 
+
+        public enum Color {
+            RED(0.531006, 0.337158, 0.128906, kRED_STRING),
+            BLUE(0.119873, 0.414551, 0.465820, kBLUE_STRING),
+            YELLOW(0.321289, 0.555908, 0.123291, kYELLOW_STRING),
+            GREEN(0.165527, 0.573975, 0.260010, kGREEN_STRING);
+
+            private double m_dRed;
+            private double m_dGreen;
+            private double m_dBlue;
+
+            private String m_name;
+
+            Color(double red, double green, double blue, String name) {
+                this.m_dRed = red;
+                this.m_dBlue = blue;
+                this.m_dGreen = green;
+                this.m_name = name;
+            }
+            public double getRed(){
+                return m_dRed;
+            }
+
+            public double getGreen(){
+                return m_dGreen;
+            }
+
+            public double getBlue(){
+                return m_dBlue;
+            }
+
+            public final String getName(){
+                return m_name;
+            }
+        }
+        
+        public enum Direction {
+            CW, CCW
+        }
+    }
+    
     public static final class DriveConstants {
         public static final int kLeftMotor1Port = 2;
         public static final int kLeftMotor2Port = 3;
@@ -43,3 +111,4 @@ public final class Constants {
        
     }
 }
+

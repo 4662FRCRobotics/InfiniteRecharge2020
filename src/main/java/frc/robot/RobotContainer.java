@@ -10,12 +10,18 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.WheelOfFortuneRotator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.InternalButton;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
+import frc.robot.Constants.ButtonMappings;
+import frc.robot.Constants.ContestantConstants.Direction;
 
 
 
@@ -31,15 +37,19 @@ public class RobotContainer {
   private final Autonomous m_autonomous = new Autonomous();
 
   private final Joystick m_driveStick = new Joystick(0);
+  
+  private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
+
   private final Joystick m_stationConsole = new Joystick(1);
   
   private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
-  
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -65,12 +75,20 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driveStick, 11).whenPressed(new TurnToAngle(90, m_drive).withTimeout(5));
-
-    new JoystickButton(m_driveStick, 12).whenPressed(new DriveDistance(250, m_drive).withTimeout(5));
+    new JoystickButton(m_driveStick, ButtonMappings.kROTATION_CONTROL).whenPressed(  // Rotation control
+        new ColorWheelRotationControl(m_contestant));
+    new JoystickButton(m_driveStick, ButtonMappings.kPOSITION_CONTROL).whenPressed(  // Position control
+        new ColorWheelPositionControl(m_contestant));
+    
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(
+        new WheelOfFortuneRotate(m_contestant, Direction.CCW));
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(
+      new WheelOfFortuneRotate(m_contestant, Direction.CW));
   }
 
-  
+  public WheelOfFortuneRotator getWheelOfFortuneRotator(){
+    return m_contestant;
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
