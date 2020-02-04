@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 
@@ -27,9 +28,13 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive m_drive = new Drive();
+  private final Autonomous m_autonomous = new Autonomous();
 
   private final Joystick m_driveStick = new Joystick(0);
-
+  private final Joystick m_stationConsole = new Joystick(1);
+  
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
+  
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -65,14 +70,15 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, 12).whenPressed(new DriveDistance(250, m_drive).withTimeout(5));
   }
 
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  /*public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return ;
-  }*/
+    return m_AutoCmd;
+  }
 }
