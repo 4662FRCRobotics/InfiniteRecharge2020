@@ -110,5 +110,12 @@ public final class Constants {
         
        
     }
+
+    public static final class HopperConstants {
+        public static final int kHOPPER_MOTOR_PORT = 8; // Arbitrary number for now
+        public static final double kHOPPER_SPEED = -0.5;
+        public static final double kHOPPER_ZERO_SPEED = 0;
+        public static final double kDISTANCE_THRESHOLD = 10.0;
+    }
 }
 

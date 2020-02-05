@@ -22,8 +22,8 @@ public class ColorWheelPositionControl extends CommandBase {
 
   
   public ColorWheelPositionControl(WheelOfFortuneRotator contestant) {
-    // Use addRequirements() here to declare subsystem dependencies.
     m_contestant = contestant;
+    addRequirements(m_contestant);
   }
 
   // Called when the command is initially scheduled.

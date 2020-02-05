@@ -35,6 +35,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive m_drive = new Drive();
   private final Autonomous m_autonomous = new Autonomous();
+  private final Hopper m_hopper = new Hopper();
 
   private final Joystick m_driveStick = new Joystick(0);
   
@@ -80,10 +81,13 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kPOSITION_CONTROL).whenPressed(  // Position control
         new ColorWheelPositionControl(m_contestant));
     
-    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(  // Override CW
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
-    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(  // Override CCW
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(  // Activate loader SHOULD BE [WHEN PRESSED] UNLESS TESTING
+      new FeedHopper(m_hopper));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){
