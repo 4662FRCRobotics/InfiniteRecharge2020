@@ -36,6 +36,7 @@ public class RobotContainer {
   private final Drive m_drive = new Drive();
   private final Autonomous m_autonomous = new Autonomous();
   private final Hopper m_hopper = new Hopper();
+  private final Shooter m_shooter = new Shooter();
 
   private final Joystick m_driveStick = new Joystick(0);
   
@@ -88,6 +89,9 @@ public class RobotContainer {
 
     new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(  // Activate loader SHOULD BE [WHEN PRESSED] UNLESS TESTING
       new FeedHopper(m_hopper));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(
+      new ShootPowerCells(m_shooter));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){

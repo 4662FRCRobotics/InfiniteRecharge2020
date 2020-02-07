@@ -117,5 +117,11 @@ public final class Constants {
         public static final double kHOPPER_ZERO_SPEED = 0;
         public static final double kDISTANCE_THRESHOLD = 10.0;
     }
+
+    public static final class ShooterConstants {
+        public static final int kSHOOTER_MOTOR_PORT = 9; // Arbitrary number for now
+        public static final double kSHOOTER_SPEED = -1.0;
+        public static final double kSHOOTER_ZERO_SPEED = 0;
+    }
 }
 
