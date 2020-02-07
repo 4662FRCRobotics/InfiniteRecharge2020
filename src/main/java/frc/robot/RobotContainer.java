@@ -36,11 +36,14 @@ public class RobotContainer {
   private final Drive m_drive = new Drive();
   private final Autonomous m_autonomous = new Autonomous();
 
-  private final Joystick m_driveStick = new Joystick(0);
+  private final Joystick m_driveStick = new Joystick(0); 
+  private final Joystick m_stationConsole = new Joystick(1);
+
+  private final Intake m_intake = new Intake();
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
-  private final Joystick m_stationConsole = new Joystick(1);
+ 
   
   private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
 
@@ -84,6 +87,8 @@ public class RobotContainer {
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(new CombineOnGroup(m_intake));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){
