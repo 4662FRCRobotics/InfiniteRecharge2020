@@ -15,13 +15,15 @@ import frc.robot.subsystems.*;
 
 public class LoadAutoXML extends CommandBase {
   private final Autonomous m_autonomous;
-  private final IntSupplier m_pov;
+  private final IntSupplier m_pov1;
+  private final IntSupplier m_pov2;
   /**
    * Creates a new LoadAutoXML.
    */
-  public LoadAutoXML(Autonomous autonomous, IntSupplier pov) {
+  public LoadAutoXML(Autonomous autonomous, IntSupplier pov1, IntSupplier pov2) {
     m_autonomous = autonomous;
-    m_pov = pov;
+    m_pov1 = pov1;
+    m_pov2 = pov2;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_autonomous);
@@ -30,7 +32,7 @@ public class LoadAutoXML extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_autonomous.getXML(m_pov);
+    m_autonomous.getXML(m_pov1, m_pov2);
   }
 
   // Returns true when the command should end.
