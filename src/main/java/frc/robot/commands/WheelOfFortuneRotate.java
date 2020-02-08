@@ -21,6 +21,7 @@ public class WheelOfFortuneRotate extends CommandBase {
 
   public WheelOfFortuneRotate(WheelOfFortuneRotator contestant, ContestantConstants.Direction direction) {
     m_contestant = contestant;
+    addRequirements(m_contestant);
     m_direction = direction;
 
     switch (direction){
