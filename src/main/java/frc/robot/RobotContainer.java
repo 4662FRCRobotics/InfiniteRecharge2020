@@ -49,8 +49,6 @@ public class RobotContainer {
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
   private final Climb m_climb = new Climb();
-
-  private final Joystick m_stationConsole = new Joystick(1);
   
   private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
 
