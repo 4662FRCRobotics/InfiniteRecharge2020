@@ -134,5 +134,8 @@ public final class Constants {
         public static final int kSERVO_OPEN_ANGLE = 180;
         public static final int kSERVO_CLOSE_ANGLE = 90;
     }
+    public static final class IntakeConstants{
+        public static final double k = 0;
+    } 
 }
 

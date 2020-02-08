@@ -40,7 +40,10 @@ public class RobotContainer {
   private final Shooter m_shooter = new Shooter();
   private final Vision m_vision = new Vision();
 
-  private final Joystick m_driveStick = new Joystick(0);
+  private final Joystick m_driveStick = new Joystick(0); 
+  private final Joystick m_stationConsole = new Joystick(1);
+
+  private final Intake m_intake = new Intake();
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
@@ -90,6 +93,8 @@ public class RobotContainer {
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(  // Override CCW
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(new CombineOnGroup(m_intake));
 
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP).whileHeld(
       new ClimbUp(m_climb));
