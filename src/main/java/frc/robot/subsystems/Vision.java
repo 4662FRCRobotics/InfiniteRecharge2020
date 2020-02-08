@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.Servo;
 
 public class Vision extends SubsystemBase {
@@ -44,5 +45,12 @@ public class Vision extends SubsystemBase {
     m_camera0Servo.setAngle(angle);
   }
 
+  private void setServoOpen(){
+    setAngle(VisionConstants.kSERVO_OPEN_ANGLE);
+  }
+
+  private void setServoClosed(){
+    setAngle(VisionConstants.kSERVO_CLOSE_ANGLE);
+  }
 
 }
