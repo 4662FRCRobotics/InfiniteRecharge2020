@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import java.io.File;
-import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,7 +38,8 @@ public class Autonomous extends SubsystemBase {
 
   private Element m_element;
 
-  private IntSupplier m_pov;
+  private IntSupplier m_pov1;
+  private IntSupplier m_pov2;
   /**
    * Creates a new Autonomous.
    */
@@ -47,9 +47,10 @@ public class Autonomous extends SubsystemBase {
 
   }
 
-  public void getXML(IntSupplier pov){
+  public void getXML(IntSupplier pov1, IntSupplier pov2){
     // load xml
-    m_pov = pov;
+    m_pov1 = pov1;
+    m_pov2 = pov2;
     try {
       File patternAndCommandFile = new File(m_strPatternxmlFilename);
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -73,7 +74,7 @@ public class Autonomous extends SubsystemBase {
   public void searchAutoXml() {
     //String strStartingPosition = Robot.m_oi.getAutoStartPos();
     String strStartingPosition = getAutoStartPos();
-    String strPattern = "1";
+    String strPattern = getAutoPatern();
   
     try {
 
@@ -114,7 +115,7 @@ public class Autonomous extends SubsystemBase {
   }
 
   public String getAutoStartPos(){
-    int startPosNumber = m_pov.getAsInt();
+    int startPosNumber = m_pov1.getAsInt();
     String startPosValue = "1";
     switch(startPosNumber){
       case 0:
@@ -130,6 +131,25 @@ public class Autonomous extends SubsystemBase {
         startPosValue = "1";
     }
     return startPosValue;
+  }
+
+  public String getAutoPatern(){
+    int AutoParNumber = m_pov2.getAsInt();
+    String ParValue = "1";
+    switch(AutoParNumber){
+      case 0:
+        ParValue = "1";
+        break;
+      case 45:
+        ParValue = "2";
+        break;
+      case 90:
+        ParValue = "3";
+        break;
+      default:
+        ParValue = "1";
+    }
+    return ParValue;
   }
 
 

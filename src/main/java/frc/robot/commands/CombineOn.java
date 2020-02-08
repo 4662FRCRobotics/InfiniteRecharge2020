@@ -7,37 +7,38 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-import java.util.function.IntSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
-public class LoadAutoXML extends CommandBase {
-  private final Autonomous m_autonomous;
-  private final IntSupplier m_pov1;
-  private final IntSupplier m_pov2;
+public class CombineOn extends CommandBase {
+  private final Intake m_intake;
   /**
-   * Creates a new LoadAutoXML.
+   * Creates a new CombineOn.
    */
-  public LoadAutoXML(Autonomous autonomous, IntSupplier pov1, IntSupplier pov2) {
-    m_autonomous = autonomous;
-    m_pov1 = pov1;
-    m_pov2 = pov2;
-
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_autonomous);
+  public CombineOn(Intake subsystem) {
+    m_intake = subsystem;
+    addRequirements(m_intake);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_autonomous.getXML(m_pov1, m_pov2);
+    m_intake.SpinnerOn();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    m_intake.SpinnerOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -41,13 +41,18 @@ public class RobotContainer {
   private final Shooter m_shooter = new Shooter();
   private final Vision m_vision = new Vision();
 
-  private final Joystick m_driveStick = new Joystick(0);
+  private final Joystick m_driveStick = new Joystick(0); 
+  private final Joystick m_stationConsole = new Joystick(1);
+
+  private final Intake m_intake = new Intake();
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
+  private final Climb m_climb = new Climb();
+
   private final Joystick m_stationConsole = new Joystick(1);
   
-  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -90,6 +95,7 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(  // Override CCW
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
 
+
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER)
       .whenPressed(
         () -> m_vision.setServoOpen())
@@ -99,6 +105,13 @@ public class RobotContainer {
           new ShootPowerCells(m_shooter)))
       .whenReleased(
         () -> m_vision.setServoClosed());
+
+    new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(new CombineOnGroup(m_intake));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP).whileHeld(
+      new ClimbUp(m_climb));
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
+      new ClimbDown(m_climb));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){

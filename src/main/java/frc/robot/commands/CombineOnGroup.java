@@ -7,21 +7,19 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-import java.util.function.IntSupplier;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class StartAutoCmd extends SequentialCommandGroup {
+public class CombineOnGroup extends SequentialCommandGroup {
   /**
-   * Creates a new StartAutoCmd.
+   * Creates a new CombineOnGroup.
    */
-  public StartAutoCmd(Autonomous autonomous, Drive drive, IntSupplier pov1, IntSupplier pov2) {
-    addCommands(new LoadAutoXML(autonomous, pov1, pov2));
-    addCommands(new StartGetNextCmd(autonomous, drive));
+  public CombineOnGroup(Intake subsystem) {
+    // Add your commands in the super() call, e.g.
+    // super(new FooCommand(), new BarCommand());super();
+    super(new CombineDown(subsystem), new CombineOn(subsystem));
   }
 }
