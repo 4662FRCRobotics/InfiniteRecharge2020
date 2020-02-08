@@ -21,7 +21,6 @@ public final class Constants {
         public static final int kPOSITION_CONTROL = 6;
         public static final int kWHEEL_OF_FORTUNE_CW = 12;
         public static final int kWHEEL_OF_FORTUNE_CCW = 11;
-        public static final int kLOADER = 2;
         public static final int kSHOOTER = 1;
         public static final int kCLIMB = 3;
         public static final int kREVERSE_CLIMB = 5;

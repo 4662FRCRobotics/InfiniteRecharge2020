@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
@@ -19,8 +20,12 @@ public class Shooter extends SubsystemBase {
    */
 
   private WPI_TalonSRX m_shooterMotor;
+  
+  private boolean m_bIsMotorOn;
+
   public Shooter() {
     m_shooterMotor = new WPI_TalonSRX(ShooterConstants.kSHOOTER_MOTOR_PORT);
+    m_bIsMotorOn = false;
   }
 
   @Override
@@ -35,10 +40,14 @@ public class Shooter extends SubsystemBase {
 
   public void setMotorOn(){
     setMotor(ShooterConstants.kSHOOTER_SPEED);
+    m_bIsMotorOn = true;
+    SmartDashboard.putBoolean("Shooter Motor", m_bIsMotorOn);
     
   }
 
   public void setMotorOff(){
     setMotor(ShooterConstants.kSHOOTER_ZERO_SPEED);
+    m_bIsMotorOn = false;
+    SmartDashboard.putBoolean("Shooter Motor", m_bIsMotorOn);
   }
 }
