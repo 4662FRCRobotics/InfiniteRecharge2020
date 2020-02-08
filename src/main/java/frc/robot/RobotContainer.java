@@ -44,6 +44,8 @@ public class RobotContainer {
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
+  private final Climb m_climb = new Climb();
+
   private final Joystick m_stationConsole = new Joystick(1);
   
   private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
@@ -88,6 +90,11 @@ public class RobotContainer {
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(  // Override CCW
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP).whileHeld(
+      new ClimbUp(m_climb));
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
+      new ClimbDown(m_climb));
 
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(
       new ParallelCommandGroup(

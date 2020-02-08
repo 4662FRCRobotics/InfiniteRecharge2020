@@ -22,8 +22,8 @@ public final class Constants {
         public static final int kWHEEL_OF_FORTUNE_CW = 12;
         public static final int kWHEEL_OF_FORTUNE_CCW = 11;
         public static final int kSHOOTER = 1;
-        public static final int kCLIMB = 3;
-        public static final int kREVERSE_CLIMB = 5;
+        public static final int kCLIMB_UP = 3;
+        public static final int kCLIMB_DOWN = 5;
     }
 
     public static final class ContestantConstants {
@@ -103,13 +103,19 @@ public final class Constants {
         public static final double kTURN_ANGLE_TOLERANCE_DEG_PER_S = 10;
 
         public static final double kKEEP_HEADING_P =  0.2;
-		public static final double kKEEP_HEADING_I =  0.0;
-		public static final double kKEEP_HEADING_D = 0.4;
+		    public static final double kKEEP_HEADING_I =  0.0;
+		    public static final double kKEEP_HEADING_D = 0.4;
         public static final double kKEEP_HEADING_TOLERANCE =  1;
-        
-       
     }
 
+    public static final class ClimberConstants{
+        public static final int kCLIMBER_PORT = 7;
+        public static final double kCLIMB_SPEED = 1;
+        public static final double kCLIMB_UP_DIRECTION = 1;
+        public static final double kCLIMB_UP_SPEED = kCLIMB_SPEED * kCLIMB_UP_DIRECTION;
+        public static final double kCLIMB_DOWN_SPEED = kCLIMB_SPEED * -kCLIMB_UP_DIRECTION;
+        public static final double kCLIMB_STOP = 0;
+    }
 
     public static final class HopperConstants {
         public static final int kHOPPER_MOTOR_PORT = 8; // Arbitrary number for now
