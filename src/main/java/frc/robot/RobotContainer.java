@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.InternalButton;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.ButtonMappings;
@@ -35,6 +36,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive m_drive = new Drive();
   private final Autonomous m_autonomous = new Autonomous();
+  private final Hopper m_hopper = new Hopper();
+  private final Shooter m_shooter = new Shooter();
+  private final Vision m_vision = new Vision();
 
   private final Joystick m_driveStick = new Joystick(0); 
   private final Joystick m_stationConsole = new Joystick(1);
@@ -43,7 +47,9 @@ public class RobotContainer {
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
- 
+  private final Climb m_climb = new Climb();
+
+  private final Joystick m_stationConsole = new Joystick(1);
   
   private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
 
@@ -83,12 +89,22 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kPOSITION_CONTROL).whenPressed(  // Position control
         new ColorWheelPositionControl(m_contestant));
     
-    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CW).whileHeld(  // Override CW
         new WheelOfFortuneRotate(m_contestant, Direction.CCW));
-    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(
+    new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(  // Override CCW
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
 
     new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(new CombineOnGroup(m_intake));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP).whileHeld(
+      new ClimbUp(m_climb));
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
+      new ClimbDown(m_climb));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(
+      new ParallelCommandGroup(
+        new FeedHopper(m_hopper),
+        new ShootPowerCells(m_shooter)));
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){
