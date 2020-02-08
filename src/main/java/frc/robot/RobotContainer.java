@@ -42,7 +42,7 @@ public class RobotContainer {
 
   private final Joystick m_stationConsole = new Joystick(1);
   
-  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV());
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
