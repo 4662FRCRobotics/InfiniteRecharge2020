@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HopperConstants;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Hopper extends SubsystemBase {
   /**
@@ -19,20 +20,24 @@ public class Hopper extends SubsystemBase {
    */
 
   private WPI_TalonSRX m_hopperMotor = new WPI_TalonSRX(HopperConstants.kHOPPER_MOTOR_PORT);
-  private double m_sensorReading;
   private boolean m_bIsHopperMotorOn;
+  private DigitalInput m_shooterSensor = new DigitalInput(HopperConstants.kSHOOTER_SENSOR_PORT);
+  private DigitalInput m_intakeSensor = new DigitalInput(HopperConstants.kINTAKE_SENSOR_PORT);
 
-  // private [insert sensor type here] m_hopperSensor = new [insert sensor type here]([insert sensor port here])
-
+  private boolean m_bShooterSensorReading;  // true - sees emitter
+  private boolean m_bIntakeSensorReading;  // false - emitter is obscured
 
   public Hopper() {
-    
+    m_bShooterSensorReading = true;
+    m_bIntakeSensorReading = true;
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    m_sensorReading = getReading();
+    m_bIntakeSensorReading = m_intakeSensor.get();
+    m_bShooterSensorReading = m_shooterSensor.get();
+    SmartDashboard.putBoolean("Shooter Sensor reading", m_bShooterSensorReading);
+    SmartDashboard.putBoolean("Intake Sensor reading", m_bIntakeSensorReading);
   }
 
   public void setHopperMotor(double speed) {
@@ -51,14 +56,7 @@ public class Hopper extends SubsystemBase {
     SmartDashboard.putBoolean("Is Hopper Motor On", m_bIsHopperMotorOn);
   }
 
-  private double getReading(){
-    return 9.0; // arbitrary value for now
-  }
-
   public boolean isHopperFull(){
-    boolean returnValue = false;
-    //double reading = getReading();
-    //returnValue = reading < HopperConstants.kDISTANCE_THRESHOLD;
-    return returnValue;
+    return !m_bShooterSensorReading;  // returns true if sensor is false (obscured)
   }
 }
