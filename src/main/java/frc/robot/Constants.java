@@ -110,6 +110,7 @@ public final class Constants {
        
     }
 
+
     public static final class HopperConstants {
         public static final int kHOPPER_MOTOR_PORT = 8; // Arbitrary number for now
         public static final double kHOPPER_SPEED = -0.5;
@@ -121,6 +122,11 @@ public final class Constants {
         public static final int kSHOOTER_MOTOR_PORT = 9; // Arbitrary number for now
         public static final double kSHOOTER_SPEED = -1.0;
         public static final double kSHOOTER_ZERO_SPEED = 0;
+    }
+
+    public static final class VisionConstants {
+        public static final int kSERVO_OPEN_ANGLE = 180;
+        public static final int kSERVO_CLOSE_ANGLE = 90;
     }
 }
 

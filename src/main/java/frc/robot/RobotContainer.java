@@ -38,6 +38,7 @@ public class RobotContainer {
   private final Autonomous m_autonomous = new Autonomous();
   private final Hopper m_hopper = new Hopper();
   private final Shooter m_shooter = new Shooter();
+  private final Vision m_vision = new Vision();
 
   private final Joystick m_driveStick = new Joystick(0);
   
