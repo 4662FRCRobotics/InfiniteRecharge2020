@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.InternalButton;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.ButtonMappings;
@@ -89,10 +90,15 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kWHEEL_OF_FORTUNE_CCW).whileHeld(  // Override CCW
       new WheelOfFortuneRotate(m_contestant, Direction.CW));
 
-    new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(
-      new ParallelCommandGroup(
-        new FeedHopper(m_hopper),
-        new ShootPowerCells(m_shooter)));
+    new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER)
+      .whenPressed(
+        () -> m_vision.setServoOpen())
+      .whileHeld(
+        new ParallelCommandGroup(
+          new FeedHopper(m_hopper),
+          new ShootPowerCells(m_shooter)))
+      .whenReleased(
+        () -> m_vision.setServoClosed());
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){

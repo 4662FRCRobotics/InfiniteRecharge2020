@@ -39,17 +39,18 @@ public class Vision extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("rPi Test", (double) m_vTestEntry.getNumber(0));
+    SmartDashboard.putNumber("Servo Angle", m_camera0Servo.getAngle());
   }
 
   private void setAngle(int angle){
     m_camera0Servo.setAngle(angle);
   }
 
-  private void setServoOpen(){
+  public void setServoOpen(){
     setAngle(VisionConstants.kSERVO_OPEN_ANGLE);
   }
 
-  private void setServoClosed(){
+  public void setServoClosed(){
     setAngle(VisionConstants.kSERVO_CLOSE_ANGLE);
   }
 
