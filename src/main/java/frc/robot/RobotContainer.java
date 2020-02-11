@@ -104,7 +104,7 @@ public class RobotContainer {
       .whenReleased(
         () -> m_vision.setServoClosed());
 
-    new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(new CombineOnGroup(m_intake));
+    new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
 
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP).whileHeld(
       new ClimbUp(m_climb));
