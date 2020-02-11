@@ -125,9 +125,13 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int kSHOOTER_MOTOR_PORT = 9; // Arbitrary number for now
-        public static final double kSHOOTER_SPEED = -1.0;
+        public static final int kSHOOTER_MOTOR0_PORT = 9;
+        public static final int kSHOOTER_MOTOR1_PORT = 10;
+
+        public static final double kSHOOTER_SPEED = -.6;
         public static final double kSHOOTER_ZERO_SPEED = 0;
+
+        public static final int kSHOOTER_DIRECTION = 1;
     }
 
     public static final class VisionConstants {
