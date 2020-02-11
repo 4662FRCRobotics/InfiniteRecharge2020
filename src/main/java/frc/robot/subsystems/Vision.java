@@ -46,12 +46,16 @@ public class Vision extends SubsystemBase {
     m_camera0Servo.setAngle(angle);
   }
 
-  public void setServoOpen(){
-    setAngle(VisionConstants.kSERVO_OPEN_ANGLE);
+  public void setServoShooter(){
+    setAngle(VisionConstants.kSERVO_SHOOTER_ANGLE);
   }
 
-  public void setServoClosed(){
-    setAngle(VisionConstants.kSERVO_CLOSE_ANGLE);
+  public void setServoDown(){
+    setAngle(VisionConstants.kSERVO_DOWN_ANGLE);
+  }
+
+  public void setServoUp(){
+    setAngle(VisionConstants.kSERVO_UP_ANGLE);
   }
 
 }
