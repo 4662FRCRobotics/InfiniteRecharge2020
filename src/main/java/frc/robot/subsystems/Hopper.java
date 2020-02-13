@@ -56,7 +56,19 @@ public class Hopper extends SubsystemBase {
     SmartDashboard.putBoolean("Is Hopper Motor On", m_bIsHopperMotorOn);
   }
 
-  public boolean isHopperFull(){
-    return !m_bShooterSensorReading;  // returns true if sensor is false (obscured)
+  private boolean isBallAtShooter(){
+    return !m_bShooterSensorReading;
+  }
+
+  private boolean isBallAtIntake(){
+    return !m_bIntakeSensorReading;
+  }
+
+  public boolean shouldHopperTurnOn(){
+    return (!isBallAtShooter()) && isBallAtIntake();
+  }
+
+  public boolean shouldIntakeTurnOn(){
+    return !(isBallAtShooter() && isBallAtIntake());
   }
 }

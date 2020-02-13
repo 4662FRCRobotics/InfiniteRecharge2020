@@ -7,8 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
 
@@ -16,6 +19,9 @@ public class Intake extends SubsystemBase {
   private String m_ArmStopPosition;
   private String m_SpinnerStatus;
   private boolean m_isArmDown;
+
+  private WPI_TalonSRX m_beltMotor;
+  // private WPI_TalonSRX m_harvesterMotor;
   /**
    * Creates a new Intake.
    */
@@ -23,6 +29,8 @@ public class Intake extends SubsystemBase {
     m_isArmDown = false;
     m_ArmStatus = "initial";
     m_SpinnerStatus = "initial";
+
+    m_beltMotor = new WPI_TalonSRX(IntakeConstants.kBELT_MOTOR_PORT);
   }
 
   private void ArmUp() {
@@ -43,18 +51,24 @@ public class Intake extends SubsystemBase {
   }
 
   public void SpinnerOn() {
+    // harvester on
     m_SpinnerStatus = "Spinning";
   }
 
   public void SpinnerOff() {
+    // harvester off
     m_SpinnerStatus = "Not Spinning";
   }
 
+  public void SpinnerReverse() {
+    // harvester reverse
+    m_SpinnerStatus = "Spinning in reverse";
+  }
   
- public void CombineUp() {
+  public void CombineUp() {
     SpinnerOff();
     ArmUp();
- }
+  }
   /*
   public void CombineDown() {
     ArmDown();
@@ -72,6 +86,16 @@ public class Intake extends SubsystemBase {
   public void CombineStop() {
     //ArmStop();
     SpinnerOff();
+  }
+
+  public void beltOn(){
+    m_beltMotor.set(IntakeConstants.kBELT_MOTOR_SPEED);
+    SmartDashboard.putBoolean("Feeder Belt", true);
+  }
+
+  public void beltOff(){
+    m_beltMotor.set(0);
+    SmartDashboard.putBoolean("Feeder Belt", false);
   }
 
   @Override

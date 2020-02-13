@@ -9,22 +9,25 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
 
-public class FeedHopper extends CommandBase {
+public class HarvestPowerCells extends CommandBase {
   /**
-   * Creates a new FeedHopper.
+   * Creates a new HarvestPowerCells.
    */
-  private Hopper m_hopper;
-
-  public FeedHopper(Hopper hopper) {
+  Hopper m_hopper;
+  Intake m_intake;
+  public HarvestPowerCells(Hopper hopper, Intake intake) {
+    // Use addRequirements() here to declare subsystem dependencies.
     m_hopper = hopper;
-    addRequirements(m_hopper);
+    m_intake = intake;
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_hopper.setHopperMotorOn();
+    m_intake.beltOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,12 +38,12 @@ public class FeedHopper extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_hopper.setHopperMotorOff();
+    m_intake.beltOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_hopper.isHopperFull();
+    return !m_hopper.shouldIntakeTurnOn();
   }
 }

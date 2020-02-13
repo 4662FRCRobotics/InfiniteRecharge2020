@@ -143,7 +143,8 @@ public final class Constants {
         public static final int kSERVO_UP_ANGLE = 90;
     }
     public static final class IntakeConstants{
-        public static final double k = 0;
+        public static final int kBELT_MOTOR_PORT = 15;
+        public static final double kBELT_MOTOR_SPEED = -1;
     } 
 }
 
