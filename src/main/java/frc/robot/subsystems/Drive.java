@@ -112,7 +112,7 @@ public class Drive extends SubsystemBase {
   }
 
   public double getDistance() {
-    return (m_leftEncoder1.getPosition() - m_rightEncoder1.getPosition()) / 2;
+    return -(m_leftEncoder1.getPosition() - m_rightEncoder1.getPosition()) / 2;
   }
 
   public double getHeading() {

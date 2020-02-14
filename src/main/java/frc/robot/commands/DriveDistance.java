@@ -38,7 +38,7 @@ public class DriveDistance extends PIDCommand {
 
     getController().setTolerance(DriveConstants.kKEEP_HEADING_TOLERANCE);
     getController().setIntegratorRange(-1, 1);
-    getController().enableContinuousInput(-190, 190);
+    // getController().enableContinuousInput(-190, 190);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }

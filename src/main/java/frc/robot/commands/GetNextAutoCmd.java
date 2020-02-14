@@ -18,14 +18,22 @@ import frc.robot.Constants.*;
 public class GetNextAutoCmd extends SequentialCommandGroup {
   Drive m_drive;
   Autonomous m_autonomous;
+  Intake m_intake;
+  Shooter m_shooter;
+  Hopper m_hopper;
+
   
   /**
    * Creates a new GetNextAutoCmd.
    */
-  public GetNextAutoCmd(Autonomous autonomous, Drive drive) {
+  public GetNextAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter,  Hopper hopper)  {
     
     m_drive = drive;
     m_autonomous = autonomous;
+    m_intake = intake;
+    m_shooter = shooter ;
+    m_hopper = hopper ;
+
 
     String command = "";
 
@@ -36,34 +44,58 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
 
 
     if(command != ""){
-      addCommands(new StartGetNextCmd(autonomous, drive));
+      addCommands(new StartGetNextCmd(autonomous, drive, intake, hopper, shooter));
     }else{
       System.out.println("exiting command loop");
     }
     
   }
   private void ProcessCommand(String command){
+    double time;
     System.out.println("Scheduled Command: " + command);
     switch (command) {
       case "wait":
-        double time = m_autonomous.getDoubleCommandValue();
-        System.out.println("Wait Command is waiting for " + time + " seconds");
+        time = m_autonomous.getDoubleCommandValue();
+        System.out.println("Wait Command is waiting for " + time + " seconds.");
         addCommands(new Wait(time));
         break;
       
       case "driveDistance":
         double distance = m_autonomous.getDoubleCommandValue();
-        System.out.println("Drive Distance is driving for " + distance + " in");
+        double setPoint = -distance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI);
+        System.out.println("Drive Distance is driving for " + distance + " inchs.");
         //addCommands(new DriveDistance(distance, m_drive));
-        addCommands(new DriveDistance(-distance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI), m_drive));
+        addCommands(new DriveDistance(setPoint, m_drive));
+        /*System.out.println("Pulse per rotation:" + DriveConstants.kPULSE_PER_ROTATION);
+        System.out.println("Reduction of the gearboxes:" + DriveConstants.kGEARBOX_REDUCTION);
+        System.out.println("Tire Diameter:" + DriveConstants.kTIRE_SIZE);
+        System.out.println("PI is:" + Math.PI);
+        System.out.println("Distance travel is:" + setPoint + " inchs(?//Theocatically)");
+        */
         break;
 
       case "turnToAngle":
         //System.out.println("Turn angle value: " + angle);
         double angle = m_autonomous.getDoubleCommandValue();
-        System.out.println("Turn Angle is turning for " + angle + " degrees");
+        System.out.println("Turn Angle is turning for " + angle + " degrees.");
         addCommands(new TurnToAngle(angle, m_drive));
         break;
+
+      case "combineDown":
+        System.out.println("Combine is coming down.");
+        addCommands(new CombineDown(m_intake));
+        break;  
+
+      /*case "combineOn":
+        System.out.println("Combine is turning on.");
+        addCommands(new CombineOn(m_intake));
+        break;*/
+      
+      case "shooter":
+        time = m_autonomous.getDoubleCommandValue(); 
+        System.out.println("Shooter is Shooting for: " + time + " Seconds");
+        addCommands(new ShootPowerCellTime(time, m_shooter));
+        break;   
 
       case "":
         System.out.println("No command is commanding.");

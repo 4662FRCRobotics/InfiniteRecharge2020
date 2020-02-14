@@ -127,6 +127,12 @@ public class Autonomous extends SubsystemBase {
       case 90:
         startPosValue = "3";
         break;
+      case 135:
+        startPosValue = "4";
+        break;
+      case 180:
+        startPosValue = "5";
+        break;      
       default:
         startPosValue = "1";
     }
@@ -146,6 +152,12 @@ public class Autonomous extends SubsystemBase {
       case 90:
         ParValue = "3";
         break;
+      case 135:
+        ParValue = "4";
+        break;
+      case 180:
+        ParValue = "5";
+        break;  
       default:
         ParValue = "1";
     }

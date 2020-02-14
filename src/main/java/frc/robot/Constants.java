@@ -24,6 +24,8 @@ public final class Constants {
         public static final int kSHOOTER = 1;
         public static final int kCLIMB_UP = 3;
         public static final int kCLIMB_DOWN = 5;
+        public static final int kLOADER = 9;
+        
     }
 
     public static final class ContestantConstants {
@@ -92,7 +94,7 @@ public final class Constants {
         public static final double kRAMP_RATE = 1.0;
         public static final int kCURRENT_LIMT = 40;
 
-        public static final double kGEARBOX_REDUCTION = (50/12) * (60/14);
+        public static final double kGEARBOX_REDUCTION = (50.0/12.0) * (60.0/14.0);
         public static final double kTIRE_SIZE = 7.9;
         public static final double kPULSE_PER_ROTATION = 1;
 
@@ -138,4 +140,3 @@ public final class Constants {
         public static final double k = 0;
     } 
 }
-
