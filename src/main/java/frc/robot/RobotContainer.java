@@ -111,27 +111,20 @@ public class RobotContainer {
       new ClimbUp(m_climb));
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
       new ClimbDown(m_climb));
-    /*
+    
     new Trigger(m_hopper::shouldHopperTurnOn).whenActive(
       new RotateHopper(m_hopper)
     );
 
+    /*
     new Trigger(m_hopper::shouldIntakeTurnOn).whenActive(
       new HarvestPowerCells(m_hopper, m_intake)
     );
     */
+    
     new  JoystickButton(m_driveStick, ButtonMappings.kLOADER)
-    .whenPressed(
-      new ParallelCommandGroup(
-        new ConditionalCommand(
-          new RotateHopper(m_hopper),
-          new InstantCommand(),
-          m_hopper::shouldHopperTurnOn),
-        new ConditionalCommand(
-          new HarvestPowerCells(m_hopper, m_intake),
-          new InstantCommand(),
-          m_hopper::shouldIntakeTurnOn)
-      )
+    .whileHeld(
+      new HarvestPowerCells(m_hopper, m_intake)
     );
   }
 

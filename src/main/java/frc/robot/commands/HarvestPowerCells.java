@@ -27,12 +27,17 @@ public class HarvestPowerCells extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.beltOn();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (m_hopper.shouldIntakeTurnOn()){
+      m_intake.beltOn();
+    } else {
+      m_intake.beltOff();
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +49,6 @@ public class HarvestPowerCells extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_hopper.shouldIntakeTurnOn();
+    return false;
   }
 }
