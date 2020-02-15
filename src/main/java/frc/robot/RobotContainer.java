@@ -110,6 +110,10 @@ public class RobotContainer {
       new ClimbUp(m_climb));
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
       new ClimbDown(m_climb));
+
+    new JoystickButton(m_driveStick, ButtonMappings.kVISION_ON).whileHeld(
+      new VisionLightOn(m_vision)
+    );
   }
 
   public WheelOfFortuneRotator getWheelOfFortuneRotator(){

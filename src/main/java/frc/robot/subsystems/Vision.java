@@ -13,7 +13,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Relay.Value;
 
 public class Vision extends SubsystemBase {
   /**
@@ -24,6 +26,8 @@ public class Vision extends SubsystemBase {
   private boolean m_bIsLightOn;
   private boolean m_bIsVisionOn;
 
+  private Relay m_cameraLightRelay;
+
   private NetworkTableEntry m_vTestEntry;
 
   public Vision() {
@@ -31,6 +35,8 @@ public class Vision extends SubsystemBase {
     m_camera0Servo = new Servo(0);
     m_bIsLightOn = false;
     m_bIsVisionOn = false;
+
+    m_cameraLightRelay = new Relay(VisionConstants.kLIGHT_RELAY_PORT);
 
     m_vTestEntry = m_visionTable.getEntry("Test");
   }
@@ -56,6 +62,16 @@ public class Vision extends SubsystemBase {
 
   public void setServoUp(){
     setAngle(VisionConstants.kSERVO_UP_ANGLE);
+  }
+
+  public void setLightRelayOn(){
+    m_cameraLightRelay.set(Value.kForward);
+    SmartDashboard.putBoolean("VisionLight", true);
+  }
+
+  public void setLightRelayOff(){
+    m_cameraLightRelay.set(Value.kOff);
+    SmartDashboard.putBoolean("VisionLight", false);
   }
 
 }

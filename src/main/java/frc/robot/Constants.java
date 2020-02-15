@@ -25,6 +25,7 @@ public final class Constants {
         public static final int kLOADER = 2;
         public static final int kCLIMB_UP = 5;
         public static final int kCLIMB_DOWN = 3;
+        public static final int kVISION_ON = 10;
     }
 
     public static final class ContestantConstants {
@@ -141,6 +142,7 @@ public final class Constants {
         public static final int kSERVO_SHOOTER_ANGLE = 45;
         public static final int kSERVO_DOWN_ANGLE = 0;
         public static final int kSERVO_UP_ANGLE = 90;
+        public static final int kLIGHT_RELAY_PORT = 0;
     }
     public static final class IntakeConstants{
         public static final double k = 0;
