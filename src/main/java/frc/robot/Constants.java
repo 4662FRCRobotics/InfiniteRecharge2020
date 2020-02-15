@@ -122,6 +122,7 @@ public final class Constants {
         public static final int kHOPPER_MOTOR_PORT = 8; // Arbitrary number for now
         public static final int kSHOOTER_SENSOR_PORT = 0;
         public static final int kINTAKE_SENSOR_PORT = 1;
+        public static final int kHOPPER_AT_INTAKE_PORT = 2;
         public static final double kHOPPER_SPEED = -0.5;
         public static final double kHOPPER_ZERO_SPEED = 0;
         public static final double kDISTANCE_THRESHOLD = 10.0;
@@ -143,7 +144,7 @@ public final class Constants {
         public static final int kSERVO_UP_ANGLE = 90;
     }
     public static final class IntakeConstants{
-        public static final int kBELT_MOTOR_PORT = 15;
+        public static final int kBELT_MOTOR_PORT = 11;
         public static final double kBELT_MOTOR_SPEED = -1;
     } 
 }

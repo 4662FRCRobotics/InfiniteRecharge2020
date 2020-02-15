@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +21,7 @@ public class Intake extends SubsystemBase {
   private String m_SpinnerStatus;
   private boolean m_isArmDown;
 
-  private WPI_TalonSRX m_beltMotor;
+  private WPI_VictorSPX m_beltMotor;
   // private WPI_TalonSRX m_harvesterMotor;
   /**
    * Creates a new Intake.
@@ -30,7 +31,7 @@ public class Intake extends SubsystemBase {
     m_ArmStatus = "initial";
     m_SpinnerStatus = "initial";
 
-    m_beltMotor = new WPI_TalonSRX(IntakeConstants.kBELT_MOTOR_PORT);
+    m_beltMotor = new WPI_VictorSPX(IntakeConstants.kBELT_MOTOR_PORT);
   }
 
   private void ArmUp() {
