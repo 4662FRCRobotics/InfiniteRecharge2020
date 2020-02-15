@@ -81,4 +81,9 @@ public class Hopper extends SubsystemBase {
   public boolean shouldIntakeTurnOn(){
     return !(isBallAtShooter() && isBallAtIntake());
   }
+
+  public boolean shouldHopperFeed(){
+    // turns on when power cell isn't at shooter OR hopper isn't aligned
+    return m_bShooterSensorReading || !m_bIsHopperAtIntake;  // !isBallAtShooter -> !!m_bShooterSensorReading
+  }
 }

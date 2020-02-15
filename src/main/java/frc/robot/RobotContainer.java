@@ -98,9 +98,7 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER)
       .whenPressed(() -> m_vision.setServoShooter())
       .whileHeld(
-        new ParallelCommandGroup(
-          new RotateHopper(m_hopper),
-          new ShootPowerCells(m_shooter)))
+        new ShootPowerCells(m_hopper, m_shooter))
       .whenReleased(() -> m_vision.setServoDown());
 
     //new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
