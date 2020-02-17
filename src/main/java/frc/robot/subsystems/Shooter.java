@@ -47,7 +47,6 @@ public class Shooter extends SubsystemBase {
     setMotor(ShooterConstants.kSHOOTER_SPEED);
     m_bIsMotorOn = true;
     SmartDashboard.putBoolean("Shooter Motor", m_bIsMotorOn);
-    
   }
 
   public void setMotorOff(){

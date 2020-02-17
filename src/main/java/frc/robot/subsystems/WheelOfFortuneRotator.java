@@ -127,6 +127,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     SmartDashboard.putNumber("Color Change Count", m_colorChangeCount);
     SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putString("Target Color", m_targetColorString);
+    SmartDashboard.putString("Bruh", "Moment");
   }
 
   public void detectColorChange(){
