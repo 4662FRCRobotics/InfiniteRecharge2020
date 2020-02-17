@@ -25,6 +25,7 @@ public class VisionLightOn extends CommandBase {
   @Override
   public void initialize() {
     m_vision.setLightRelayOn();
+    m_vision.setVisionOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +37,7 @@ public class VisionLightOn extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_vision.setLightRelayOff();
+    m_vision.setVisionOff();
   }
 
   // Returns true when the command should end.

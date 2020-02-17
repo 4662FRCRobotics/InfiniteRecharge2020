@@ -16,6 +16,8 @@ import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Vision extends SubsystemBase {
   /**
@@ -28,24 +30,49 @@ public class Vision extends SubsystemBase {
 
   private Relay m_cameraLightRelay;
 
-  private NetworkTableEntry m_vTestEntry;
+  private boolean m_bIsLoadingStationAligned;
+  private boolean m_bIsHighGoalAligned;
+
+  private NetworkTableEntry m_vLoadingStationAligned;
+  private NetworkTableEntry m_vHighGoalAligned;
+  private NetworkTableEntry m_vVisionOn;
+
+  private ShuffleboardTab m_visionTab;
 
   public Vision() {
-    m_visionTable = NetworkTableInstance.getDefault().getTable("Vision");
+    m_visionTable = NetworkTableInstance.getDefault().getTable(VisionConstants.kVISION_TABLE_KEY);
     m_camera0Servo = new Servo(0);
     m_bIsLightOn = false;
     m_bIsVisionOn = false;
 
-    m_cameraLightRelay = new Relay(VisionConstants.kLIGHT_RELAY_PORT);
+    m_vLoadingStationAligned = m_visionTable.getEntry(VisionConstants.kIS_LOADING_STATION_ALIGNED_KEY);
+    m_vHighGoalAligned = m_visionTable.getEntry(VisionConstants.kIS_HIGH_GOAL_ALIGNED_KEY);
+    m_vVisionOn = m_visionTable.getEntry(VisionConstants.kIS_VISION_ON_KEY);
 
-    m_vTestEntry = m_visionTable.getEntry("Test");
+    m_visionTab = Shuffleboard.getTab(VisionConstants.kVISION_TAB_KEY);
+
+    m_visionTab.addNumber("Servo Angle", () -> m_camera0Servo.getAngle());
+    m_visionTab.addBoolean("Is Loading Station Aligned", () -> m_bIsLoadingStationAligned);
+    m_visionTab.addBoolean("Is High Goal Aligned", () -> m_bIsHighGoalAligned);
+
+    m_bIsLoadingStationAligned = false;
+
+    m_cameraLightRelay = new Relay(VisionConstants.kLIGHT_RELAY_PORT);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("rPi Test", (double) m_vTestEntry.getNumber(0));
+    m_bIsLoadingStationAligned = m_vLoadingStationAligned.getBoolean(false);
+    m_bIsHighGoalAligned = m_vHighGoalAligned.getBoolean(false);
+
+    m_vVisionOn.setBoolean(m_bIsVisionOn);
+
+    /*
     SmartDashboard.putNumber("Servo Angle", m_camera0Servo.getAngle());
+    SmartDashboard.putBoolean("Is Loading Station Aligned", m_bIsLoadingStationAligned);
+    SmartDashboard.putBoolean("Is High Goal Aligned", m_bIsHighGoalAligned);
+    */
   }
 
   private void setAngle(int angle){
@@ -64,6 +91,14 @@ public class Vision extends SubsystemBase {
     setAngle(VisionConstants.kSERVO_UP_ANGLE);
   }
 
+  public void setVisionOn(){
+    m_bIsVisionOn = true;
+  }
+
+  public void setVisionOff(){
+    m_bIsVisionOn = false;
+  }
+
   public void setLightRelayOn(){
     m_cameraLightRelay.set(Value.kForward);
     SmartDashboard.putBoolean("VisionLight", true);
@@ -72,6 +107,14 @@ public class Vision extends SubsystemBase {
   public void setLightRelayOff(){
     m_cameraLightRelay.set(Value.kOff);
     SmartDashboard.putBoolean("VisionLight", false);
+  }
+
+  public boolean isLoadingStationAligned(){
+    return m_bIsLoadingStationAligned;
+  }
+
+  public boolean isHighGoalAligned(){
+    return m_bIsHighGoalAligned;
   }
 
 }

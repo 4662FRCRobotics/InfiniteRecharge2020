@@ -99,7 +99,10 @@ public class RobotContainer {
       .whileHeld(
         new ParallelCommandGroup(
           new FeedHopper(m_hopper),
-          new ShootPowerCells(m_shooter)))
+          new ShootPowerCells(m_shooter),
+          new VisionLightOn(m_vision)
+        )
+      )
       .whenReleased(() -> m_vision.setServoDown());
 
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
@@ -111,13 +114,9 @@ public class RobotContainer {
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
       new ClimbDown(m_climb));
 
-    new JoystickButton(m_driveStick, ButtonMappings.kVISION_ON).whileHeld(
+    /*new JoystickButton(m_driveStick, ButtonMappings.kVISION_ON).whileHeld(
       new VisionLightOn(m_vision)
-    );
-  }
-
-  public WheelOfFortuneRotator getWheelOfFortuneRotator(){
-    return m_contestant;
+    );*/
   }
 
   /**
