@@ -99,7 +99,7 @@ public class RobotContainer {
       .whenPressed(() -> m_vision.setServoShooter())
       .whileHeld(
         new ParallelCommandGroup(
-          new ShootPowerCells(m_hopper, m_shooter),
+          new ShootPowerCells(m_hopper, m_shooter, m_vision),
           new VisionLightOn(m_vision)
         )
       )
@@ -128,6 +128,9 @@ public class RobotContainer {
     .whileHeld(
       new HarvestPowerCells(m_hopper, m_intake)
     );
+
+    new JoystickButton(m_driveStick, ButtonMappings.kVISION_ON).whileHeld(
+      new VisionLightOn(m_vision));
   }
 
   /**
