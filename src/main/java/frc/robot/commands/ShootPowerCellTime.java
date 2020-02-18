@@ -7,21 +7,23 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-import java.util.function.IntSupplier;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.subsystems.*;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class StartAutoCmd extends SequentialCommandGroup {
+public class ShootPowerCellTime extends ParallelRaceGroup {
+
   /**
-   * Creates a new StartAutoCmd.
+   * Creates a new ShootPowerCellTime.
    */
-  public StartAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter, Hopper hopper, IntSupplier pov1, IntSupplier pov2) {
-    addCommands(new LoadAutoXML(autonomous, pov1, pov2));
-    addCommands(new StartGetNextCmd(autonomous, drive, intake, hopper, shooter));
-  }
+  public ShootPowerCellTime(double time, Shooter shooter) {
+    super(new Wait(time), new ShootPowerCells(shooter));
+
+    // Add your commands in the super() call, e.g.
+    // super(new FooCommand(), new BarCommand());
+  }  
+    
 }

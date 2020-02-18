@@ -41,17 +41,16 @@ public class RobotContainer {
   private final Hopper m_hopper = new Hopper();
   private final Shooter m_shooter = new Shooter();
   private final Vision m_vision = new Vision();
+  private final Intake m_intake = new Intake();
 
   private final Joystick m_driveStick = new Joystick(0); 
   private final Joystick m_stationConsole = new Joystick(1);
-
-  private final Intake m_intake = new Intake();
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
 
   private final Climb m_climb = new Climb();
   
-  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive,() -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive, m_intake, m_shooter, m_hopper, () -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

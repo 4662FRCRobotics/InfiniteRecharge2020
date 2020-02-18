@@ -22,6 +22,7 @@ public final class Constants {
         public static final int kWHEEL_OF_FORTUNE_CW = 12;
         public static final int kWHEEL_OF_FORTUNE_CCW = 11;
         public static final int kSHOOTER = 1;
+
         public static final int kLOADER = 2;
         public static final int kCLIMB_UP = 5;
         public static final int kCLIMB_DOWN = 3;
@@ -94,7 +95,7 @@ public final class Constants {
         public static final double kRAMP_RATE = 1.0;
         public static final int kCURRENT_LIMT = 40;
 
-        public static final double kGEARBOX_REDUCTION = (50/12) * (60/14);
+        public static final double kGEARBOX_REDUCTION = (50.0/12.0) * (60.0/14.0);
         public static final double kTIRE_SIZE = 7.9;
         public static final double kPULSE_PER_ROTATION = 1;
 
@@ -157,4 +158,3 @@ public final class Constants {
         public static final double kBELT_MOTOR_SPEED = -1;
     } 
 }
-
