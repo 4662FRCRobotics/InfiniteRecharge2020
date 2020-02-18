@@ -8,44 +8,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 
-public class ShootPowerCells extends CommandBase {
+public class VisionLightOn extends CommandBase {
   /**
-   * Creates a new ShootPowerCells.
+   * Creates a new VisionLightOn.
    */
-  private Shooter m_shooter;
-  private Hopper m_hopper;
-  public ShootPowerCells(Hopper hopper, Shooter shooter) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    m_hopper = hopper;
-    m_shooter = shooter;
-    addRequirements(m_hopper);
-    addRequirements(m_shooter);
+  private Vision m_vision;
+  public VisionLightOn(Vision vision) {
+    addRequirements(vision);
+    m_vision = vision;
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setMotorOn();
+    m_vision.setLightRelayOn();
+    m_vision.setVisionOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_hopper.shouldHopperFeed()){
-      m_hopper.setHopperMotorOn();
-    } else {
-      m_hopper.setHopperMotorOff();
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.setMotorOff();
-    m_hopper.setHopperMotorOff();
+    m_vision.setLightRelayOff();
+    m_vision.setVisionOff();
   }
 
   // Returns true when the command should end.

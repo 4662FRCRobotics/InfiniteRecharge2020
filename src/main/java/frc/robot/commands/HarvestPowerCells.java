@@ -9,43 +9,41 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
-public class ShootPowerCells extends CommandBase {
+public class HarvestPowerCells extends CommandBase {
   /**
-   * Creates a new ShootPowerCells.
+   * Creates a new HarvestPowerCells.
    */
-  private Shooter m_shooter;
-  private Hopper m_hopper;
-  public ShootPowerCells(Hopper hopper, Shooter shooter) {
+  Hopper m_hopper;
+  Intake m_intake;
+  public HarvestPowerCells(Hopper hopper, Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_hopper = hopper;
-    m_shooter = shooter;
-    addRequirements(m_hopper);
-    addRequirements(m_shooter);
+    m_intake = intake;
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setMotorOn();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_hopper.shouldHopperFeed()){
-      m_hopper.setHopperMotorOn();
+    if (m_hopper.shouldIntakeTurnOn()){
+      m_intake.beltOn();
     } else {
-      m_hopper.setHopperMotorOff();
+      m_intake.beltOff();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.setMotorOff();
-    m_hopper.setHopperMotorOff();
+    m_intake.beltOff();
   }
 
   // Returns true when the command should end.

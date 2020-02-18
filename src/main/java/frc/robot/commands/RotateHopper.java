@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
 
-public class FeedHopper extends CommandBase {
+public class RotateHopper extends CommandBase {
   /**
    * Creates a new FeedHopper.
    */
   private Hopper m_hopper;
 
-  public FeedHopper(Hopper hopper) {
+  public RotateHopper(Hopper hopper) {
     m_hopper = hopper;
     addRequirements(m_hopper);
   }
@@ -41,6 +41,6 @@ public class FeedHopper extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_hopper.isHopperFull();
+    return m_hopper.shouldHopperStop();
   }
 }

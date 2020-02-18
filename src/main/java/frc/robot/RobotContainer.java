@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.InternalButton;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
@@ -94,25 +95,38 @@ public class RobotContainer {
 
 
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER)
-      .whenPressed(
-        () -> m_vision.setServoOpen())
+      .whenPressed(() -> m_vision.setServoShooter())
       .whileHeld(
         new ParallelCommandGroup(
-          new FeedHopper(m_hopper),
-          new ShootPowerCells(m_shooter)))
-      .whenReleased(
-        () -> m_vision.setServoClosed());
+          new ShootPowerCells(m_hopper, m_shooter),
+          new VisionLightOn(m_vision)
+        )
+      )
+      .whenReleased(() -> m_vision.setServoDown());
 
-    new JoystickButton(m_driveStick, ButtonMappings.kLOADER).whileHeld(new CombineOnGroup(m_intake));
+    //new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
 
-    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP).whileHeld(
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP)
+    .whenPressed(() -> m_vision.setServoUp())
+    .whileHeld(
       new ClimbUp(m_climb));
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
       new ClimbDown(m_climb));
-  }
+    
+    new Trigger(m_hopper::shouldHopperTurnOn).whenActive(
+      new RotateHopper(m_hopper)
+    );
 
-  public WheelOfFortuneRotator getWheelOfFortuneRotator(){
-    return m_contestant;
+    /*
+    new Trigger(m_hopper::shouldIntakeTurnOn).whenActive(
+      new HarvestPowerCells(m_hopper, m_intake)
+    );
+    */
+    
+    new  JoystickButton(m_driveStick, ButtonMappings.kLOADER)
+    .whileHeld(
+      new HarvestPowerCells(m_hopper, m_intake)
+    );
   }
 
   /**

@@ -19,12 +19,16 @@ public class Shooter extends SubsystemBase {
    * okay
    */
 
-  private WPI_TalonSRX m_shooterMotor;
+  private WPI_TalonSRX m_shooterMotor0;
+  private WPI_TalonSRX m_shooterMotor1;
   
   private boolean m_bIsMotorOn;
 
   public Shooter() {
-    m_shooterMotor = new WPI_TalonSRX(ShooterConstants.kSHOOTER_MOTOR_PORT);
+    m_shooterMotor0 = new WPI_TalonSRX(ShooterConstants.kSHOOTER_MOTOR0_PORT);
+    m_shooterMotor1 = new WPI_TalonSRX(ShooterConstants.kSHOOTER_MOTOR1_PORT);
+
+
     m_bIsMotorOn = false;
   }
 
@@ -35,14 +39,14 @@ public class Shooter extends SubsystemBase {
   }
 
   private void setMotor(double speed){
-    m_shooterMotor.set(speed);
+    m_shooterMotor0.set(speed * ShooterConstants.kSHOOTER_DIRECTION);
+    m_shooterMotor1.set(speed * -ShooterConstants.kSHOOTER_DIRECTION);
   }
 
   public void setMotorOn(){
     setMotor(ShooterConstants.kSHOOTER_SPEED);
     m_bIsMotorOn = true;
     SmartDashboard.putBoolean("Shooter Motor", m_bIsMotorOn);
-    
   }
 
   public void setMotorOff(){
