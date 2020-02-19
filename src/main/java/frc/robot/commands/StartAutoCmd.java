@@ -20,8 +20,8 @@ public class StartAutoCmd extends SequentialCommandGroup {
   /**
    * Creates a new StartAutoCmd.
    */
-  public StartAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter, Hopper hopper, IntSupplier pov1, IntSupplier pov2) {
+  public StartAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter, Hopper hopper, Vision vision, IntSupplier pov1, IntSupplier pov2) {
     addCommands(new LoadAutoXML(autonomous, pov1, pov2));
-    addCommands(new StartGetNextCmd(autonomous, drive, intake, hopper, shooter));
+    addCommands(new StartGetNextCmd(autonomous, drive, intake, hopper, shooter, vision));
   }
 }

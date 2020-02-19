@@ -17,17 +17,19 @@ public class StartGetNextCmd extends CommandBase {
   Intake m_intake;
   Hopper m_hopper;
   Shooter m_shooter;
+  Vision m_vision;
 
   /**
    * Creates a new StartGetNextCmd.
    */
-  public StartGetNextCmd(Autonomous autonomous, Drive drive, Intake intake, Hopper hopper, Shooter shooter) {
+  public StartGetNextCmd(Autonomous autonomous, Drive drive, Intake intake, Hopper hopper, Shooter shooter, Vision vision) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_autonomous = autonomous;
     m_drive = drive;
     m_intake = intake;
     m_hopper = hopper;
     m_shooter = shooter;
+    m_vision = vision;
   }
 
   // Called when the command is initially scheduled.
@@ -38,7 +40,7 @@ public class StartGetNextCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Command commandGroup = (Command) new GetNextAutoCmd(m_autonomous, m_drive, m_intake, m_shooter, m_hopper);
+    Command commandGroup = (Command) new GetNextAutoCmd(m_autonomous, m_drive, m_intake, m_shooter, m_hopper, m_vision);
     commandGroup.schedule();
   }
 

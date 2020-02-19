@@ -50,7 +50,7 @@ public class RobotContainer {
 
   private final Climb m_climb = new Climb();
   
-  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive, m_intake, m_shooter, m_hopper, () -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
+  private final CommandBase m_AutoCmd = new StartAutoCmd(m_autonomous, m_drive, m_intake, m_shooter, m_hopper, m_vision, () -> m_stationConsole.getPOV(0),() -> m_stationConsole.getPOV(1));
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
