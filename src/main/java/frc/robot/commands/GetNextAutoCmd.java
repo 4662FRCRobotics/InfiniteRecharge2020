@@ -21,18 +21,20 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
   Intake m_intake;
   Shooter m_shooter;
   Hopper m_hopper;
+  Vision m_vision;
 
   
   /**
    * Creates a new GetNextAutoCmd.
    */
-  public GetNextAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter,  Hopper hopper)  {
+  public GetNextAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter,  Hopper hopper, Vision vision)  {
     
     m_drive = drive;
     m_autonomous = autonomous;
     m_intake = intake;
-    m_shooter = shooter ;
-    m_hopper = hopper ;
+    m_shooter = shooter;
+    m_hopper = hopper;
+    m_vision = vision;
 
 
     String command = "";
@@ -44,7 +46,7 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
 
 
     if(command != ""){
-      addCommands(new StartGetNextCmd(autonomous, drive, intake, hopper, shooter));
+      addCommands(new StartGetNextCmd(m_autonomous, m_drive, m_intake, m_hopper, m_shooter, m_vision));
     }else{
       System.out.println("exiting command loop");
     }
@@ -94,7 +96,7 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
       case "shooter":
         time = m_autonomous.getDoubleCommandValue(); 
         System.out.println("Shooter is Shooting for: " + time + " Seconds");
-        addCommands(new ShootPowerCellTime(time, m_shooter));
+        addCommands(new AutoShoot(time, m_shooter, m_vision, m_drive, m_hopper));
         break;   
 
       case "":

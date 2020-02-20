@@ -150,8 +150,11 @@ public final class Constants {
         public static final String kIS_LOADING_STATION_ALIGNED_KEY = "isLoadingStationAligned";
         public static final String kIS_HIGH_GOAL_ALIGNED_KEY = "isHighGoalAligned";
         public static final String kIS_VISION_ON_KEY = "isVisionOn";
+        public static final String kVISION_OFFSET_KEY = "highGoalOffset";
+        public static final String kVISION_DISTANCE_KEY = "highGoalDistance";
 
         public static final String kVISION_TAB_KEY = "Vision Table";
+
     }
     public static final class IntakeConstants{
         public static final int kBELT_MOTOR_PORT = 11;
