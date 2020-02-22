@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -27,6 +28,7 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
   /**
    * Creates a new GetNextAutoCmd.
    */
+
   public GetNextAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter,  Hopper hopper, Vision vision)  {
     
     m_drive = drive;
@@ -46,13 +48,13 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
 
 
     if(command != ""){
-      addCommands(new StartGetNextCmd(autonomous, drive, intake, hopper, shooter, vision));
+      addCommands(new StartGetNextCmd(m_autonomous, m_drive, m_intake, m_hopper, m_shooter, m_vision));
     }else{
       System.out.println("exiting command loop");
     }
     
   }
-  private void ProcessCommand(String command){
+  private void ProcessCommand(final String command){
     double time;
     System.out.println("Scheduled Command: " + command);
     switch (command) {
@@ -63,8 +65,8 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
         break;
       
       case "driveDistance":
-        double distance = m_autonomous.getDoubleCommandValue();
-        double setPoint = -distance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI);
+        final double distance = m_autonomous.getDoubleCommandValue();
+        final double setPoint = -distance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI);
         System.out.println("Drive Distance is driving for " + distance + " inchs.");
         //addCommands(new DriveDistance(distance, m_drive));
         addCommands(new DriveDistance(setPoint, m_drive));
@@ -78,7 +80,7 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
 
       case "turnToAngle":
         //System.out.println("Turn angle value: " + angle);
-        double angle = m_autonomous.getDoubleCommandValue();
+        final double angle = m_autonomous.getDoubleCommandValue();
         System.out.println("Turn Angle is turning for " + angle + " degrees.");
         addCommands(new TurnToAngle(angle, m_drive));
         break;
@@ -96,7 +98,7 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
       case "shooter":
         time = m_autonomous.getDoubleCommandValue(); 
         System.out.println("Shooter is Shooting for: " + time + " Seconds");
-        addCommands(new ShootPowerCellTime(time, m_hopper, m_shooter, m_vision));
+        addCommands(new ConditionalCommand(new AutoShoot(time, m_shooter, m_vision, m_drive, m_hopper), new DriveDistance(-48, m_drive), m_vision::isHighGoalAligned));
         break;   
 
       case "":

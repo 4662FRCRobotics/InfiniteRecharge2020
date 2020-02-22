@@ -36,6 +36,8 @@ public class Vision extends SubsystemBase {
   private NetworkTableEntry m_vLoadingStationAligned;
   private NetworkTableEntry m_vHighGoalAligned;
   private NetworkTableEntry m_vVisionOn;
+  private NetworkTableEntry m_vHighGoalOffset;
+  private NetworkTableEntry m_vHighGoalDistance;
 
   private ShuffleboardTab m_visionTab;
 
@@ -48,6 +50,8 @@ public class Vision extends SubsystemBase {
     m_vLoadingStationAligned = m_visionTable.getEntry(VisionConstants.kIS_LOADING_STATION_ALIGNED_KEY);
     m_vHighGoalAligned = m_visionTable.getEntry(VisionConstants.kIS_HIGH_GOAL_ALIGNED_KEY);
     m_vVisionOn = m_visionTable.getEntry(VisionConstants.kIS_VISION_ON_KEY);
+    m_vHighGoalOffset = m_visionTable.getEntry(VisionConstants.kVISION_OFFSET_KEY);
+    m_vHighGoalDistance = m_visionTable.getEntry(VisionConstants.kVISION_DISTANCE_KEY);
 
     m_visionTab = Shuffleboard.getTab(VisionConstants.kVISION_TAB_KEY);
 
@@ -115,6 +119,15 @@ public class Vision extends SubsystemBase {
 
   public boolean isHighGoalAligned(){
     return m_bIsHighGoalAligned;
+  }
+
+  public double getHighOffset(){
+    return m_vHighGoalOffset.getDouble(0);
+
+  }
+
+  public double getHighDistance(){
+    return m_vHighGoalDistance.getDouble(0);
   }
 
 }
