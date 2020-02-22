@@ -36,11 +36,11 @@ public class ShootPowerCells extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_vision.isHighGoalAligned()){
+    //if (m_vision.isHighGoalAligned()){
       m_shooter.setMotorOn();
-    } else {
-      m_shooter.setMotorOff();
-    }
+    //} else {
+      //m_shooter.setMotorOff();
+    //}
     
     if (m_hopper.shouldHopperFeed()){
       m_hopper.setHopperMotorOn();

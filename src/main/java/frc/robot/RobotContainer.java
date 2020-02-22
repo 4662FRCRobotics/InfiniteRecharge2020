@@ -132,6 +132,10 @@ public class RobotContainer {
       new VisionLightOn(m_vision));
   }
 
+  public void zeroHopperEncoder(){
+    m_hopper.zeroHopperEncoder();
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

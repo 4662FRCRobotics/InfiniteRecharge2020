@@ -24,6 +24,7 @@ public class RotateHopper extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_hopper.setTarget();
     m_hopper.setHopperMotorOn();
   }
 
