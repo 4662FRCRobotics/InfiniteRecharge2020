@@ -27,7 +27,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
 
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  private ColorSensorV3 m_colorSensor;
 
   private final ColorMatch m_colorMatcher;
 
@@ -48,7 +48,11 @@ public class WheelOfFortuneRotator extends SubsystemBase {
 
   private WPI_TalonSRX m_colorWheelMotor;
 
+  private boolean hasSensorEverReset = false;
+
   public WheelOfFortuneRotator() {
+    instantiateColorSensor();
+
     m_colorMatcher = new ColorMatch();
     m_gameData = "";
     m_colorChangeCount = 0;
@@ -115,11 +119,14 @@ public class WheelOfFortuneRotator extends SubsystemBase {
         break;
     }
 
-    
-
     m_colorConfidence = match.confidence;
 
+    if (m_colorSensor.hasReset()){
+      hasSensorEverReset = true;
+      instantiateColorSensor();
+    }
 
+    SmartDashboard.putBoolean("Has Sensor Ever Reset", hasSensorEverReset);
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
@@ -127,7 +134,10 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     SmartDashboard.putNumber("Color Change Count", m_colorChangeCount);
     SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putString("Target Color", m_targetColorString);
-    SmartDashboard.putString("Bruh", "Moment");
+  }
+
+  private void instantiateColorSensor(){
+    m_colorSensor = new ColorSensorV3(i2cPort);
   }
 
   public void detectColorChange(){

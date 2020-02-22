@@ -42,7 +42,6 @@ public class Intake extends SubsystemBase {
     m_ArmStatus = "Moving Down";
   }
   
-  
   public void ArmStop() {
     m_ArmStatus = "Arm Stopped Moving";
   }

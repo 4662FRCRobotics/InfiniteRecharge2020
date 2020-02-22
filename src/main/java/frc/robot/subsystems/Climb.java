@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
@@ -14,12 +16,15 @@ import frc.robot.Constants.ClimberConstants;
 public class Climb extends SubsystemBase {
 
   private boolean m_bIsClimbBrakeSet;
+  private WPI_TalonSRX m_ClimbMotorFwd;
+  private WPI_TalonSRX m_ClimbMotorInv;
   /**
    * Creates a new Climb.
    */
   public Climb() {
     m_bIsClimbBrakeSet = true;
-
+    m_ClimbMotorFwd = new WPI_TalonSRX(ClimberConstants.kCLIMBER_FWD_PORT);
+    m_ClimbMotorInv = new WPI_TalonSRX(ClimberConstants.kCLIMBER_INV_PORT);
   }
 
   @Override
@@ -29,6 +34,8 @@ public class Climb extends SubsystemBase {
   }
   private void setClimbMotor(double climbSpeed){
     SmartDashboard.putNumber("Climb Speed",climbSpeed);
+    m_ClimbMotorFwd.set(climbSpeed);
+    m_ClimbMotorInv.set(-climbSpeed);
     //Display the speed of the Climb motors on SmartDashboard.
   }
   public void climbUp(){
