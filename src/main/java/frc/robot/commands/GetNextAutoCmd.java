@@ -28,7 +28,8 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
   /**
    * Creates a new GetNextAutoCmd.
    */
-  public GetNextAutoCmd(final Autonomous autonomous, final Drive drive, final Intake intake, final Shooter shooter,  final Hopper hopper, final Vision vision)  {
+
+  public GetNextAutoCmd(Autonomous autonomous, Drive drive, Intake intake, Shooter shooter,  Hopper hopper, Vision vision)  {
     
     m_drive = drive;
     m_autonomous = autonomous;
