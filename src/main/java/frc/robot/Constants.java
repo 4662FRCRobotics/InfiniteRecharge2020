@@ -112,7 +112,8 @@ public final class Constants {
     }
 
     public static final class ClimberConstants{
-        public static final int kCLIMBER_PORT = 7;
+        public static final int kCLIMBER_FWD_PORT = 7;
+        public static final int kCLIMBER_INV_PORT = 12;
         public static final double kCLIMB_SPEED = 1;
         public static final double kCLIMB_UP_DIRECTION = 1;
         public static final double kCLIMB_UP_SPEED = kCLIMB_SPEED * kCLIMB_UP_DIRECTION;
