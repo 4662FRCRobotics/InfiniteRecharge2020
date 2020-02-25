@@ -39,10 +39,10 @@ public final class Constants {
         public static final int kMOTOR_ID = 6;
         public static final double kPOSITION_MOTOR_SPEED = 0.25;
         public static final double kROTATION_MOTOR_SPEED = 0.5;
-        public static final double kOVERRIDE_SPEED = 0.75;
+        public static final double kOVERRIDE_SPEED = 1.0;
         public static final double kZERO_SPEED = 0;
 
-        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;
+        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.85;  // .95
 
         //public static final int CONTESTANT_MOTOR = 
 

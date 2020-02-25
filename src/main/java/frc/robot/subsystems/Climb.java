@@ -8,6 +8,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.ParamEnum;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +29,10 @@ public class Climb extends SubsystemBase {
     m_bIsClimbBrakeSet = true;
     m_ClimbMotorFwd = new WPI_TalonSRX(ClimberConstants.kCLIMBER_FWD_PORT);
     m_ClimbMotorInv = new WPI_TalonSRX(ClimberConstants.kCLIMBER_INV_PORT);
+    m_ClimbMotorFwd.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+    m_ClimbMotorFwd.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+    m_ClimbMotorInv.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+    m_ClimbMotorInv.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
   }
 
   @Override
