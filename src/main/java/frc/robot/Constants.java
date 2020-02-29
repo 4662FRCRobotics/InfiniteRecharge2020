@@ -26,8 +26,10 @@ public final class Constants {
         public static final int kLOADER = 2;
         public static final int kCLIMB_UP = 5;
         public static final int kCLIMB_DOWN = 3;
-        public static final int kVISION_ON = 10;
-        public static final int kVISION_DOWN = 9;
+        public static final int kVISION_ON = 8;
+        public static final int kVISION_DOWN = 7;
+
+        public static final int kHARVESTER_REVERSE = 10;
     }
 
     public static final class ContestantConstants {
@@ -43,7 +45,7 @@ public final class Constants {
         public static final double kOVERRIDE_SPEED = 1.0;
         public static final double kZERO_SPEED = 0;
 
-        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.85;  // .95
+        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;  // .85
 
         //public static final int CONTESTANT_MOTOR = 
 
@@ -163,6 +165,6 @@ public final class Constants {
     }
     public static final class IntakeConstants{
         public static final int kBELT_MOTOR_PORT = 11;
-        public static final double kBELT_MOTOR_SPEED = -1;
+        public static final double kBELT_MOTOR_SPEED = -0.5;
     } 
 }
