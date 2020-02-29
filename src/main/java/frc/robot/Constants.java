@@ -27,6 +27,7 @@ public final class Constants {
         public static final int kCLIMB_UP = 5;
         public static final int kCLIMB_DOWN = 3;
         public static final int kVISION_ON = 10;
+        public static final int kVISION_DOWN = 9;
     }
 
     public static final class ContestantConstants {

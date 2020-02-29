@@ -40,7 +40,7 @@ public class RobotContainer {
   private final Autonomous m_autonomous = new Autonomous();
   private final Hopper m_hopper = new Hopper();
   private final Shooter m_shooter = new Shooter();
-  private final Vision m_vision = new Vision();
+  public final Vision m_vision = new Vision();
   private final Intake m_intake = new Intake();
 
   private final Joystick m_driveStick = new Joystick(0); 
@@ -95,14 +95,14 @@ public class RobotContainer {
 
 
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER)
-      .whenPressed(() -> m_vision.setServoShooter())
+     // .whenPressed(() -> m_vision.setServoShooter())
       .whileHeld(
         new ParallelCommandGroup(
           new ShootPowerCells(m_hopper, m_shooter, m_vision),
           new VisionLightOn(m_vision)
         )
-      )
-      .whenReleased(() -> m_vision.setServoDown());
+      );
+      //.whenReleased(() -> m_vision.setServoDown());
 
     //new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
 
@@ -116,6 +116,9 @@ public class RobotContainer {
     new Trigger(m_hopper::shouldHopperTurnOn).whenActive(
       new RotateHopper(m_hopper)
     );
+
+    new JoystickButton(m_driveStick, ButtonMappings.kVISION_DOWN)
+    .whenPressed(() -> m_vision.setServoDown());
 
     /*
     new Trigger(m_hopper::shouldIntakeTurnOn).whenActive(
