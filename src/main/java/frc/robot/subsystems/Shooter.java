@@ -28,6 +28,8 @@ public class Shooter extends SubsystemBase {
     m_shooterMotor0 = new WPI_TalonSRX(ShooterConstants.kSHOOTER_MOTOR0_PORT);
     m_shooterMotor1 = new WPI_TalonSRX(ShooterConstants.kSHOOTER_MOTOR1_PORT);
 
+    m_shooterMotor0.configFactoryDefault();
+    m_shooterMotor1.configFactoryDefault();
 
     m_bIsMotorOn = false;
   }

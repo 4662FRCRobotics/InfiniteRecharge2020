@@ -59,6 +59,11 @@ public class Drive extends SubsystemBase {
     m_rightController1 = new CANSparkMax(DriveConstants.kRightMotor1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
     m_rightController2 = new CANSparkMax(DriveConstants.kRightMotor2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
 
+    m_rightController1.restoreFactoryDefaults();
+    m_rightController2.restoreFactoryDefaults();
+    m_leftController1.restoreFactoryDefaults();
+    m_leftController2.restoreFactoryDefaults();
+    
     m_leftControlGroup = new SpeedControllerGroup(m_leftController1, m_leftController2);
     m_rightControlGroup = new SpeedControllerGroup(m_rightController1, m_rightController2);
 

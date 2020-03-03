@@ -38,12 +38,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive m_drive = new Drive();
   private final Autonomous m_autonomous = new Autonomous();
-  private final Hopper m_hopper = new HopperV2();
+  private final Hopper m_hopper = new Hopper();
   private final Shooter m_shooter = new Shooter();
   public final Vision m_vision = new Vision();
   private final Intake m_intake = new Intake();
 
-  private final Joystick m_driveStick = new Joystick(0); 
+  private final Joystick m_driveStick = new Joystick(0);
   private final Joystick m_stationConsole = new Joystick(1);
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
@@ -107,9 +107,13 @@ public class RobotContainer {
     //new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
 
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP)
-    .whenPressed(() -> m_vision.setServoUp())
     .whileHeld(
-      new ClimbUp(m_climb));
+      new ConditionalCommand(
+        new ClimbUp(m_climb),
+        new InstantCommand(),
+        () -> m_driveStick.getRawButton(ButtonMappings.kCLIMB_SWITCH))
+      );
+    
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
       new ClimbDown(m_climb));
     
@@ -117,8 +121,9 @@ public class RobotContainer {
       new RotateHopper(m_hopper)
     );
 
-    new JoystickButton(m_driveStick, ButtonMappings.kVISION_DOWN)
-    .whenPressed(() -> m_vision.setServoDown());
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_SWITCH)
+    .whenPressed(() -> m_vision.setServoUp())
+    .whenReleased(() -> m_vision.setServoDown());
 
     new JoystickButton(m_driveStick, ButtonMappings.kHARVESTER_REVERSE)
     .whenPressed(() -> m_intake.SpinnerReverse())

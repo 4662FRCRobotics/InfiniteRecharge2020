@@ -28,6 +28,8 @@ public final class Constants {
         public static final int kCLIMB_DOWN = 3;
         public static final int kVISION_ON = 8;
         public static final int kVISION_DOWN = 7;
+        
+        public static final int kCLIMB_SWITCH = 9;
 
         public static final int kHARVESTER_REVERSE = 10;
     }
@@ -117,7 +119,7 @@ public final class Constants {
     public static final class ClimberConstants{
         public static final int kCLIMBER_FWD_PORT = 7;
         public static final int kCLIMBER_INV_PORT = 12;
-        public static final double kCLIMB_SPEED = 1;
+        public static final double kCLIMB_SPEED = 0.2;
         public static final double kCLIMB_UP_DIRECTION = 1;
         public static final double kCLIMB_UP_SPEED = kCLIMB_SPEED * kCLIMB_UP_DIRECTION;
         public static final double kCLIMB_DOWN_SPEED = kCLIMB_SPEED * -kCLIMB_UP_DIRECTION;

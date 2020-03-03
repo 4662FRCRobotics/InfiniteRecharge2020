@@ -59,6 +59,7 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     m_previousColor = "";
 
     m_colorWheelMotor = new WPI_TalonSRX(ContestantConstants.kMOTOR_ID);
+    m_colorWheelMotor.configFactoryDefault();
 
     //m_contestantMotor = new TalonSRX(ContestantConstants.CONTESTANT_MOTOR);
 
@@ -120,11 +121,13 @@ public class WheelOfFortuneRotator extends SubsystemBase {
     }
 
     m_colorConfidence = match.confidence;
-
+    
+    /*
     if (m_colorSensor.hasReset()){
       hasSensorEverReset = true;
       instantiateColorSensor();
     }
+    */
 
     SmartDashboard.putBoolean("Has Sensor Ever Reset", hasSensorEverReset);
     SmartDashboard.putNumber("Red", detectedColor.red);
