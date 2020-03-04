@@ -28,7 +28,7 @@ public class Autonomous extends SubsystemBase {
   
   private Document m_patternAndCommandDoc;
   private XPath m_xPath;
-  private final String m_strPatternxmlFilename = "/home/lvuser/autonomous.xml";
+  private final String m_strPatternxmlFilename = "/home/lvuser/deploy/Autonomous.xml";
   private String m_strPattern;
 
   private Node m_node;
