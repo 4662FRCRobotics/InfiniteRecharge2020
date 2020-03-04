@@ -20,7 +20,7 @@ public class ShootPowerCellTime extends ParallelRaceGroup {
    * Creates a new ShootPowerCellTime.
    */
   public ShootPowerCellTime(double time, Hopper hopper, Shooter shooter, Vision vision) {
-    super(new Wait(time), new ShootPowerCells(hopper, shooter, vision, () -> 1.0));
+    super(new Wait(time), new ShootPowerCells(hopper, shooter, vision));
 
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());

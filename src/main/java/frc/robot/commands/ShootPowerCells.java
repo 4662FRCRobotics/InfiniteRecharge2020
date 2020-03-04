@@ -23,12 +23,25 @@ public class ShootPowerCells extends CommandBase {
   private Hopper m_hopper;
   private Vision m_vision;
   private Joystick m_driveStick;
+  private double m_throttle;
+  private boolean m_bIsAutonomous;
   public ShootPowerCells(Hopper hopper, Shooter shooter, Vision vision, Joystick driveStick) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_hopper = hopper;
     m_shooter = shooter;
     m_vision = vision;
     m_driveStick = driveStick;
+    m_bIsAutonomous = false;
+    addRequirements(m_hopper);
+    addRequirements(m_shooter);
+  }
+
+  public ShootPowerCells(Hopper hopper, Shooter shooter, Vision vision) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    m_hopper = hopper;
+    m_shooter = shooter;
+    m_vision = vision;
+    m_bIsAutonomous = true;
     addRequirements(m_hopper);
     addRequirements(m_shooter);
   }
@@ -41,6 +54,11 @@ public class ShootPowerCells extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (m_bIsAutonomous){
+      m_throttle = 1;
+    } else {
+      m_throttle = m_driveStick.getThrottle();
+    }
     //if (m_vision.isHighGoalAligned()){
       m_shooter.setMotorOn(m_driveStick.getThrottle());
     //} else {
