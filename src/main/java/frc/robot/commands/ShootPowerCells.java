@@ -7,6 +7,9 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Shooter;
@@ -19,11 +22,13 @@ public class ShootPowerCells extends CommandBase {
   private Shooter m_shooter;
   private Hopper m_hopper;
   private Vision m_vision;
-  public ShootPowerCells(Hopper hopper, Shooter shooter, Vision vision) {
+  private Joystick m_driveStick;
+  public ShootPowerCells(Hopper hopper, Shooter shooter, Vision vision, Joystick driveStick) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_hopper = hopper;
     m_shooter = shooter;
     m_vision = vision;
+    m_driveStick = driveStick;
     addRequirements(m_hopper);
     addRequirements(m_shooter);
   }
@@ -37,7 +42,7 @@ public class ShootPowerCells extends CommandBase {
   @Override
   public void execute() {
     //if (m_vision.isHighGoalAligned()){
-      m_shooter.setMotorOn();
+      m_shooter.setMotorOn(m_driveStick.getThrottle());
     //} else {
       //m_shooter.setMotorOff();
     //}

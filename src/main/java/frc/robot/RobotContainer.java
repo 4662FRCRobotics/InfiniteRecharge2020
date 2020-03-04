@@ -98,7 +98,7 @@ public class RobotContainer {
      // .whenPressed(() -> m_vision.setServoShooter())
       .whileHeld(
         new ParallelCommandGroup(
-          new ShootPowerCells(m_hopper, m_shooter, m_vision),
+          new ShootPowerCells(m_hopper, m_shooter, m_vision, m_driveStick),
           new VisionLightOn(m_vision)
         )
       );

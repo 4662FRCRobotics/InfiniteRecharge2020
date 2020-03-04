@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,8 +47,9 @@ public class Shooter extends SubsystemBase {
     m_shooterMotor1.set(speed * -ShooterConstants.kSHOOTER_DIRECTION);
   }
 
-  public void setMotorOn(){
-    setMotor(ShooterConstants.kSHOOTER_SPEED);
+  public void setMotorOn(double throttle){
+    double adjustedThrottle = 2 / (throttle + 3);
+    setMotor(ShooterConstants.kSHOOTER_SPEED * adjustedThrottle);
     m_bIsMotorOn = true;
     SmartDashboard.putBoolean("Shooter Motor", m_bIsMotorOn);
   }
