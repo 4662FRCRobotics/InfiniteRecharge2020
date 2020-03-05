@@ -68,12 +68,4 @@ public class Climb extends SubsystemBase {
   public void climbStop(){
     setClimbMotor(ClimberConstants.kCLIMB_STOP);
   }
-
-  public void climbBrakeSet(){
-    m_bIsClimbBrakeSet = true;
- 
-  }
-  public void climbBrakeRelease(){
-    m_bIsClimbBrakeSet = false;
-  }
 }
