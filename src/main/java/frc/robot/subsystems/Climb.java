@@ -16,12 +16,15 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
 public class Climb extends SubsystemBase {
 
+  private Servo m_climbBrake;
+  
   private boolean m_bIsClimbBrakeSet;
   private WPI_TalonSRX m_ClimbMotorFwd;
   private WPI_TalonSRX m_ClimbMotorInv;
@@ -46,6 +49,7 @@ public class Climb extends SubsystemBase {
     m_ClimbMotorFwd.setInverted(false);
     m_ClimbMotorInv.setInverted(InvertType.InvertMotorOutput);
     // flashes same color as master but reverses output as advertised
+    m_climbBrake = new Servo(ClimberConstants.kCLIMBER_BRAKE_PORT);
 
   }
 
@@ -67,5 +71,12 @@ public class Climb extends SubsystemBase {
   }
   public void climbStop(){
     setClimbMotor(ClimberConstants.kCLIMB_STOP);
+  }
+
+  public void climbBrakeSet(){
+    m_climbBrake.setPosition(ClimberConstants.kCLIMB_BRAKE_CLOSE_ANGLE);
+  }
+  public void climbBrakeRelease(){
+    m_climbBrake.setPosition(ClimberConstants.kCLIMB_BRAKE_OPEN_ANGLE);
   }
 }

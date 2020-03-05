@@ -119,11 +119,14 @@ public final class Constants {
     public static final class ClimberConstants{
         public static final int kCLIMBER_FWD_PORT = 7;
         public static final int kCLIMBER_INV_PORT = 12;
+        public static final int kCLIMBER_BRAKE_PORT = 1;
         public static final double kCLIMB_SPEED = 0.2;
         public static final double kCLIMB_UP_DIRECTION = 1;
         public static final double kCLIMB_UP_SPEED = kCLIMB_SPEED * kCLIMB_UP_DIRECTION;
         public static final double kCLIMB_DOWN_SPEED = kCLIMB_SPEED * -kCLIMB_UP_DIRECTION;
         public static final double kCLIMB_STOP = 0;
+        public static final double kCLIMB_BRAKE_CLOSE_ANGLE = 1;
+        public static final double kCLIMB_BRAKE_OPEN_ANGLE = 0;
     }
 
     public static final class HopperConstants {
