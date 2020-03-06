@@ -28,7 +28,7 @@ public class Autonomous extends SubsystemBase {
   
   private Document m_patternAndCommandDoc;
   private XPath m_xPath;
-  private final String m_strPatternxmlFilename = "/home/lvuser/autonomous.xml";
+  private final String m_strPatternxmlFilename = "/home/lvuser/deploy/Autonomous.xml";
   private String m_strPattern;
 
   private Node m_node;
@@ -132,9 +132,12 @@ public class Autonomous extends SubsystemBase {
         break;
       case 180:
         startPosValue = "5";
+        break;  
+      case 225:
+        startPosValue = "6";
         break;      
       default:
-        startPosValue = "1";
+        startPosValue = "6";
     }
     return startPosValue;
   }
@@ -157,9 +160,12 @@ public class Autonomous extends SubsystemBase {
         break;
       case 180:
         ParValue = "5";
-        break;  
+        break;
+      case 225:
+        ParValue = "6";
+        break;    
       default:
-        ParValue = "1";
+        ParValue = "6";
     }
     return ParValue;
   }
