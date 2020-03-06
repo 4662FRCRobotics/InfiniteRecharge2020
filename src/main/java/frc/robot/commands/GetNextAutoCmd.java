@@ -60,14 +60,14 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
     switch (command) {
       case "wait":
         time = m_autonomous.getDoubleCommandValue();
-        System.out.println("Wait Command is waiting for " + time + " seconds.");
+        //System.out.println("Wait Command is waiting for " + time + " seconds.");
         addCommands(new Wait(time));
         break;
       
       case "driveDistance":
         final double distance = m_autonomous.getDoubleCommandValue();
         final double setPoint = -distance * DriveConstants.kPULSE_PER_ROTATION * DriveConstants.kGEARBOX_REDUCTION / (DriveConstants.kTIRE_SIZE * Math.PI);
-        System.out.println("Drive Distance is driving for " + distance + " inchs.");
+        //System.out.println("Drive Distance is driving for " + distance + " inchs.");
         //addCommands(new DriveDistance(distance, m_drive));
         addCommands(new DriveDistance(setPoint, m_drive));
         /*System.out.println("Pulse per rotation:" + DriveConstants.kPULSE_PER_ROTATION);
@@ -81,12 +81,12 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
       case "turnToAngle":
         //System.out.println("Turn angle value: " + angle);
         final double angle = m_autonomous.getDoubleCommandValue();
-        System.out.println("Turn Angle is turning for " + angle + " degrees.");
+        //System.out.println("Turn Angle is turning for " + angle + " degrees.");
         addCommands(new TurnToAngle(angle, m_drive));
         break;
 
       case "combineDown":
-        System.out.println("Combine is coming down.");
+        //System.out.println("Combine is coming down.");
         addCommands(new CombineDown(m_intake));
         break;  
 
@@ -97,16 +97,16 @@ public class GetNextAutoCmd extends SequentialCommandGroup {
       
       case "shooter":
         time = m_autonomous.getDoubleCommandValue(); 
-        System.out.println("Shooter is Shooting for: " + time + " Seconds");
+        //System.out.println("Shooter is Shooting for: " + time + " Seconds");
         addCommands(new ConditionalCommand(new AutoShoot(time, m_shooter, m_vision, m_drive, m_hopper), new DriveDistance(-48, m_drive), m_vision::isHighGoalAligned));
         break;   
 
       case "":
-        System.out.println("No command is commanding.");
+        //System.out.println("No command is commanding.");
         break;
 
       default:
-        System.out.println("Unrecognized command: " + command);
+        //System.out.println("Unrecognized command: " + command);
     }
   }
 }

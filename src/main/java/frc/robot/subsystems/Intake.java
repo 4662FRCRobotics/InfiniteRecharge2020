@@ -32,6 +32,7 @@ public class Intake extends SubsystemBase {
     m_SpinnerStatus = "initial";
 
     m_beltMotor = new WPI_VictorSPX(IntakeConstants.kBELT_MOTOR_PORT);
+    m_beltMotor.configFactoryDefault();
   }
 
   private void ArmUp() {

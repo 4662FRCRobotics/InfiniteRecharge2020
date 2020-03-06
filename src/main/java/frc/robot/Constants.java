@@ -26,7 +26,12 @@ public final class Constants {
         public static final int kLOADER = 2;
         public static final int kCLIMB_UP = 5;
         public static final int kCLIMB_DOWN = 3;
-        public static final int kVISION_ON = 10;
+        public static final int kVISION_ON = 8;
+        public static final int kVISION_DOWN = 7;
+        
+        public static final int kCLIMB_SWITCH = 9;
+
+        public static final int kHARVESTER_REVERSE = 10;
     }
 
     public static final class ContestantConstants {
@@ -39,10 +44,10 @@ public final class Constants {
         public static final int kMOTOR_ID = 6;
         public static final double kPOSITION_MOTOR_SPEED = 0.25;
         public static final double kROTATION_MOTOR_SPEED = 0.5;
-        public static final double kOVERRIDE_SPEED = 0.75;
+        public static final double kOVERRIDE_SPEED = 1.0;
         public static final double kZERO_SPEED = 0;
 
-        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;
+        public static final double kCOLOR_CONFIDENCE_THRESHOLD = 0.95;  // .85
 
         //public static final int CONTESTANT_MOTOR = 
 
@@ -106,26 +111,32 @@ public final class Constants {
         public static final double kTURN_ANGLE_TOLERANCE_DEG_PER_S = 10;
 
         public static final double kKEEP_HEADING_P =  0.2;
-		    public static final double kKEEP_HEADING_I =  0.0;
-		    public static final double kKEEP_HEADING_D = 0.4;
+		public static final double kKEEP_HEADING_I =  0.0;
+		public static final double kKEEP_HEADING_D = 0.4;
         public static final double kKEEP_HEADING_TOLERANCE =  1;
     }
 
     public static final class ClimberConstants{
         public static final int kCLIMBER_FWD_PORT = 7;
         public static final int kCLIMBER_INV_PORT = 12;
-        public static final double kCLIMB_SPEED = 1;
+        public static final int kCLIMBER_BRAKE_PORT = 1;
+        public static final double kCLIMB_SPEED = 0.8;
         public static final double kCLIMB_UP_DIRECTION = 1;
         public static final double kCLIMB_UP_SPEED = kCLIMB_SPEED * kCLIMB_UP_DIRECTION;
         public static final double kCLIMB_DOWN_SPEED = kCLIMB_SPEED * -kCLIMB_UP_DIRECTION;
         public static final double kCLIMB_STOP = 0;
+        public static final double kCLIMB_BRAKE_CLOSE_ANGLE = 1;
+        public static final double kCLIMB_BRAKE_OPEN_ANGLE = 0;
     }
 
     public static final class HopperConstants {
         public static final int kHOPPER_MOTOR_PORT = 8; // Arbitrary number for now
         public static final int kSHOOTER_SENSOR_PORT = 0;
         public static final int kINTAKE_SENSOR_PORT = 1;
-        public static final int kHOPPER_AT_INTAKE_PORT = 2;
+        public static final int kHOPPER_ENCODER_PORT = 3;
+        public static final double kDISTANCE_PER_ROTATION = 6.0;
+        public static final double kHOPPER_ENCODER_TOLERANCE = 0.05;
+        //public static final int kHOPPER_AT_INTAKE_PORT = 2;
         public static final double kHOPPER_SPEED = -0.5;
         public static final double kHOPPER_ZERO_SPEED = 0;
         public static final double kDISTANCE_THRESHOLD = 10.0;
@@ -159,6 +170,6 @@ public final class Constants {
     }
     public static final class IntakeConstants{
         public static final int kBELT_MOTOR_PORT = 11;
-        public static final double kBELT_MOTOR_SPEED = -1;
+        public static final double kBELT_MOTOR_SPEED = -0.5;
     } 
 }

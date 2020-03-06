@@ -40,10 +40,10 @@ public class RobotContainer {
   private final Autonomous m_autonomous = new Autonomous();
   private final Hopper m_hopper = new Hopper();
   private final Shooter m_shooter = new Shooter();
-  private final Vision m_vision = new Vision();
+  public final Vision m_vision = new Vision();
   private final Intake m_intake = new Intake();
 
-  private final Joystick m_driveStick = new Joystick(0); 
+  private final Joystick m_driveStick = new Joystick(0);
   private final Joystick m_stationConsole = new Joystick(1);
   
   private final WheelOfFortuneRotator m_contestant = new WheelOfFortuneRotator();
@@ -95,27 +95,39 @@ public class RobotContainer {
 
 
     new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER)
-      .whenPressed(() -> m_vision.setServoShooter())
+     // .whenPressed(() -> m_vision.setServoShooter())
       .whileHeld(
         new ParallelCommandGroup(
-          new ShootPowerCells(m_hopper, m_shooter, m_vision),
+          new ShootPowerCells(m_hopper, m_shooter, m_vision, m_driveStick),
           new VisionLightOn(m_vision)
         )
-      )
-      .whenReleased(() -> m_vision.setServoDown());
+      );
+      //.whenReleased(() -> m_vision.setServoDown());
 
     //new JoystickButton(m_driveStick, ButtonMappings.kSHOOTER).whileHeld(new CombineOnGroup(m_intake));
 
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_UP)
-    .whenPressed(() -> m_vision.setServoUp())
     .whileHeld(
-      new ClimbUp(m_climb));
+      new ConditionalCommand(
+        new ClimbUp(m_climb),
+        new InstantCommand(),
+        () -> m_driveStick.getRawButton(ButtonMappings.kCLIMB_SWITCH))
+      );
+    
     new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_DOWN).whileHeld(
       new ClimbDown(m_climb));
     
     new Trigger(m_hopper::shouldHopperTurnOn).whenActive(
       new RotateHopper(m_hopper)
     );
+
+    new JoystickButton(m_driveStick, ButtonMappings.kCLIMB_SWITCH)
+    .whenPressed(() -> m_vision.setServoUp())
+    .whenReleased(() -> m_vision.setServoDown());
+
+    new JoystickButton(m_driveStick, ButtonMappings.kHARVESTER_REVERSE)
+    .whenPressed(() -> m_intake.SpinnerReverse())
+    .whenReleased(() -> m_intake.SpinnerOff());
 
     /*
     new Trigger(m_hopper::shouldIntakeTurnOn).whenActive(
@@ -130,6 +142,10 @@ public class RobotContainer {
 
     new JoystickButton(m_driveStick, ButtonMappings.kVISION_ON).whileHeld(
       new VisionLightOn(m_vision));
+  }
+
+  public void zeroHopperEncoder(){
+    m_hopper.zeroHopperEncoder();
   }
 
   /**
