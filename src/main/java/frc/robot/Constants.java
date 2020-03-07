@@ -92,10 +92,10 @@ public final class Constants {
     }
     
     public static final class DriveConstants {
-        public static final int kLeftMotor1Port = 2;
-        public static final int kLeftMotor2Port = 3;
-        public static final int kRightMotor1Port = 4;
-        public static final int kRightMotor2Port = 5;
+        public static final int kLEFT_MOTOR1_PORT = 2;
+        public static final int kLEFT_MOTOR2_PORT = 3;
+        public static final int kRIGHT_MOTOR1_PORT = 4;
+        public static final int kRIGHT_MOTOR2_PORT = 5;
 
         public static final double kRAMP_RATE = 1.0;
         public static final int kCURRENT_LIMT = 40;

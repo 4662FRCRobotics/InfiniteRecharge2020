@@ -54,10 +54,10 @@ public class Drive extends SubsystemBase {
   private volatile double m_dSteeringHeading;
 
   public Drive() {
-    m_leftController1 = new CANSparkMax(DriveConstants.kLeftMotor1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
-    m_leftController2 = new CANSparkMax(DriveConstants.kLeftMotor2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
-    m_rightController1 = new CANSparkMax(DriveConstants.kRightMotor1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
-    m_rightController2 = new CANSparkMax(DriveConstants.kRightMotor2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_leftController1 = new CANSparkMax(DriveConstants.kLEFT_MOTOR1_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_leftController2 = new CANSparkMax(DriveConstants.kLEFT_MOTOR2_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_rightController1 = new CANSparkMax(DriveConstants.kRIGHT_MOTOR1_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_rightController2 = new CANSparkMax(DriveConstants.kRIGHT_MOTOR2_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     m_rightController1.restoreFactoryDefaults();
     m_rightController2.restoreFactoryDefaults();
