@@ -47,9 +47,14 @@ public class Shooter extends SubsystemBase {
     m_shooterMotor1.set(speed * -ShooterConstants.kSHOOTER_DIRECTION);
   }
 
+  private void setMotor(double speed0, double speed1){
+    m_shooterMotor0.set(speed0 * ShooterConstants.kSHOOTER_DIRECTION);
+    m_shooterMotor1.set(speed1 * -ShooterConstants.kSHOOTER_DIRECTION);
+  }
+
   public void setMotorOn(double throttle){
     double adjustedThrottle = 2 / (throttle + 3);
-    setMotor(ShooterConstants.kSHOOTER_SPEED * adjustedThrottle);
+    setMotor(ShooterConstants.kSHOOTER_SPEED, ShooterConstants.kSHOOTER_SPEED * adjustedThrottle);
     m_bIsMotorOn = true;
     SmartDashboard.putBoolean("Shooter Motor", m_bIsMotorOn);
   }

@@ -55,12 +55,12 @@ public class ShootPowerCells extends CommandBase {
   @Override
   public void execute() {
     if (m_bIsAutonomous){
-      m_throttle = 1;
+      m_throttle = -1;
     } else {
       m_throttle = m_driveStick.getThrottle();
     }
     //if (m_vision.isHighGoalAligned()){
-      m_shooter.setMotorOn(m_driveStick.getThrottle());
+      m_shooter.setMotorOn(m_throttle);
     //} else {
       //m_shooter.setMotorOff();
     //}
