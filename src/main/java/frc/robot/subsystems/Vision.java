@@ -43,7 +43,7 @@ public class Vision extends SubsystemBase {
 
   public Vision() {
     m_visionTable = NetworkTableInstance.getDefault().getTable(VisionConstants.kVISION_TABLE_KEY);
-    m_camera0Servo = new Servo(0);
+    m_camera0Servo = new Servo(VisionConstants.kCAMERA_SERVO_PORT);
     m_bIsLightOn = false;
     m_bIsVisionOn = false;
 

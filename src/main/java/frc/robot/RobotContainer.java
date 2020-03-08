@@ -127,6 +127,7 @@ public class RobotContainer {
 
     new JoystickButton(m_driveStick, ButtonMappings.kHARVESTER_REVERSE)
     .whenPressed(() -> m_intake.SpinnerReverse())
+    .whileHeld(new RotateHopper(m_hopper))
     .whenReleased(() -> m_intake.SpinnerOff());
 
     /*
